@@ -1,0 +1,18 @@
+export const theme = {
+  grey100: '#F8F9FA',
+  grey200: '#E1E7EC',
+  grey300: '#D5DDE5',
+  grey400: '#CCD4DB',
+  grey500: '#AEBECD',
+  grey600: '#929FB1',
+  grey700: '#6E7A8A',
+  grey800: '#404B5A',
+  grey900: '#202833',
+  primary100: '#d4c3f4',
+  primary200: '#bea9e8',
+  primary300: '#ab8fe0',
+  primary500: '#6839ba',
+  primary700: '#543196',
+  primary800: '#3f2572',
+  primary900: '#3d236d',
+}
