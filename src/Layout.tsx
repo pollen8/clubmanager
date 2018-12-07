@@ -68,20 +68,27 @@ export const Input = styled.input`
     box-shadow: inset 0 0  0.3rem   ${({ theme }) => theme.primary300};
     outline: 0;
   }
+
+  &[type="checkbox"] {
+    box-shadow: none;
+    width: auto;
+    font-size: 0.9rem;
+    margin: 0 0.7rem;
+    padding: 0;
+  }
 `;
 
-export const Button = styled.button<{ size?: 'sm' | 'md' | 'lg', color?: string }>`
+export const Button = styled.button<{ size?: 'sm' | 'md' | 'lg', color?: string, outline?: boolean }>`
   line-height: ${(props) => props.size ?
     props.size === 'sm' ? '1.5rem' : '2.188rem'
     : '2.188rem'};
-
+  display: flex;
+  align-items: center;
   font-size: ${(props) => props.size ?
     props.size === 'sm' ? '0.65rem' : '0.75rem'
     : '0.75rem'};
   padding: 0 1.2rem;
-  line-height: ${(props) => props.size ?
-    props.size === 'sm' ? '1.5rem' : '2.188rem'
-    : '2.188rem'};
+
   border-radius: 0.5rem;
   text-transform: uppercase;
   cursor: pointer;
@@ -89,16 +96,30 @@ export const Button = styled.button<{ size?: 'sm' | 'md' | 'lg', color?: string 
   transition: all .15s ease-in-out;
   white-space: nowrap;
   border: 0;
-  background-color: ${({ theme, color }) => color ? theme[color] : theme.primary300};
-  color: #fff;
+  background-color: ${({ theme, color, outline }) => outline
+    ? 'transparent'
+    : color ? theme[color] : theme.primary300};
+  color: ${({ theme, color, outline }) => outline
+    ? color ? theme[color] : theme.primary300
+    : theme.onBackground};
   letter-spacing: 0.04rem;
 
   &:hover {
-    background-color: ${({ theme }) => theme.primary500};
+    background-color: ${({ theme, color, outline }) => outline
+    ? 'transparent'
+    : color ? theme[color] : theme.primary500};
+    color: ${({ theme, color, outline }) => outline
+    ? color ? theme[color] : theme.primary500
+    : theme.onBackground};
+  }
+
+  svg {
+    margin-right: 0.2rem;
   }
 `;
 
-export const FormGroup = styled.div`
+export const FormGroup = styled.div<{ checked?: boolean }>`
+  display: ${(props) => props.checked ? 'flex' : 'block'};
   margin: 0 0.5rem 0.7rem 0;
 `;
 

@@ -1,4 +1,5 @@
 export const theme = {
+  onBackground: '#FFF',
   grey100: '#F8F9FA',
   grey200: '#E1E7EC',
   grey300: '#D5DDE5',

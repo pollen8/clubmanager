@@ -9,7 +9,7 @@ import {
   Popper,
   Reference,
 } from 'react-popper';
-import { Route } from 'react-router-dom';
+import Select from 'react-select';
 import styled from 'styled-components';
 
 import {
@@ -26,7 +26,6 @@ const Title = styled.h1`
   margin: 1.5rem 1.5rem 1.5rem 0;
   font-size: 1.5rem;
 `;
-
 
 const CircleImg = styled.img<{ width?: number, height?: number }>`
   object-fit: cover;
@@ -63,7 +62,6 @@ export const Header: React.SFC<{ auth: any }> = ({ auth }) => {
       setDropdownVisible(false);
     });
   }, []);
-  console.log('profile', profile);
   return (
     <Container>
       <Row style={{ alignItems: 'center' }}>
@@ -87,6 +85,16 @@ export const Header: React.SFC<{ auth: any }> = ({ auth }) => {
         {
           isAuthenticated() && (
             <Fragment>
+              <div>Season:{' '}</div>
+              <div style={{ minWidth: '9rem' }}>
+                <Select
+                  options={[
+                    { value: '2018', label: '2018 - 2019' },
+                    { value: '2019', label: '2019 - 2020' }
+                  ]}
+                  value={{ value: '2018', label: '2018 - 2019' }}
+                />
+              </div>
               <div ref={(ref) => circleRef = ref}>
                 <Manager>
                   <Reference>
