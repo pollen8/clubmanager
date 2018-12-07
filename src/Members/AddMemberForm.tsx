@@ -2,6 +2,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import { IoIosAddCircle } from 'react-icons/io';
 
 import {
   Button,
@@ -9,25 +10,35 @@ import {
   Input,
   Label,
 } from '../Layout';
-import { IMember } from './memberState';
+import {
+  IMember,
+  IMembershipType,
+} from './memberState';
 
 interface IProps {
   addMember: (game: IMember) => void;
+  editMember: (game: IMember) => void;
   initialData: null | IMember;
   setSelected: any;
 }
 export const AddMemberForm: React.SFC<IProps & React.HTMLAttributes<HTMLDivElement>>
-  = ({ addMember, initialData, setSelected }) => {
+  = ({ addMember, editMember, initialData, setSelected }) => {
     const [name, setName] = useState('');
+    const [id, setId] = useState('');
+    const [membership, setMembership] = useState<IMembershipType>('');
 
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
       if (initialData !== null) {
         setName(initialData.name);
+        setMembership(initialData.membership);
+        setId(initialData.id);
       } else {
         setName('');
+        setMembership('guest');
+        setId('');
       }
-    });
+    }, [initialData]);
     return (
       <div>
         <FormGroup>
@@ -38,17 +49,35 @@ export const AddMemberForm: React.SFC<IProps & React.HTMLAttributes<HTMLDivEleme
             value={name}
             onChange={(e) => setName(e.target.value)} />
         </FormGroup>
+        <FormGroup
+          checked>
+          <Label htmlFor="membership">
+            Is a member?
+          </Label>
+          <Input type="checkbox"
+            id="membership"
+            checked={membership === 'member'}
+            onChange={(e) => setMembership(e.target.checked ? 'member' : 'guest')} />
+
+        </FormGroup>
         <Button
-          onClick={() => {
-            addMember({ name, id: '', });
-            setName('');
-          }}>
-          {initialData === null ? 'Add' : 'Edit'}
-        </Button>
-        <Button
+          outline
           onClick={() => setSelected(null)}>
           Clear
           </Button>
+
+        <Button
+          onClick={() => {
+            id === ''
+              ? addMember({ name, membership, id })
+              : editMember({ name, membership, id })
+            setName('');
+            setMembership('guest');
+            setId('');
+          }}>
+          <IoIosAddCircle size="1rem" />
+          {initialData === null ? 'Add' : 'Update'}
+        </Button>
       </div>
     );
   }

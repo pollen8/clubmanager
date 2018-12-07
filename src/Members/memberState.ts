@@ -4,13 +4,21 @@ import {
   useState,
 } from 'react';
 
+export type IMembershipType = '' | 'member' | 'guest';
 export interface IMember {
+  createdAt?: Date;
   id: string;
   name: string;
+  membership: IMembershipType;
+  updatedAt?: Date;
 }
 
 const MemberConnection = Parse.Object.extend("Member");
 const query = new Parse.Query(MemberConnection);
+const sortByName = (a: IMember, b: IMember) => a.name > b.name
+  ? 1
+  : a.name < b.name
+    ? -1 : 0;
 
 export const memberState = (initialValue: IMember[]) => {
   const [members, setMembers] = useState(initialValue);
@@ -20,8 +28,11 @@ export const memberState = (initialValue: IMember[]) => {
       const results = await query.find();
       setMembers(results.map((result: any): IMember => {
         return {
+          createdAt: result.createdAt,
           name: result.get('name'),
+          membership: result.get('membership'),
           id: result.id,
+          updatedAt: result.updatedAt,
         }
       }));
     })()
@@ -33,18 +44,9 @@ export const memberState = (initialValue: IMember[]) => {
     addMember: async (member: IMember) => {
       try {
         const memberConnection = new MemberConnection();
-        Object.keys(member)
-          .filter((k) => k !== 'id')
-          .forEach((k) => {
-            memberConnection.set(k, member[k as keyof IMember]);
-          });
-        const newMember = await memberConnection.save();
+        const newMember = await memberConnection.save(member);
         member.id = newMember.id;
-        setMembers([...members, member].sort((a, b) => a.name > b.name
-          ? 1
-          : a.name < b.name
-            ? -1 : 0
-        ));
+        setMembers([...members, member].sort(sortByName));
       } catch (error) {
         alert('Failed to create new object, with error code: ' + error.message);
       }
@@ -63,14 +65,9 @@ export const memberState = (initialValue: IMember[]) => {
     editMember: async (member: IMember) => {
       try {
         const memberConnection = new MemberConnection();
-        Object.keys(member)
-          .forEach((k) => memberConnection.set(k, member[k as keyof IMember]));
-        await memberConnection.save();
-        setMembers([...members].sort((a, b) => a.name > b.name
-          ? 1
-          : a.name < b.name
-            ? -1 : 0
-        ));
+        const updated = await memberConnection.save(member);
+        // @TODO insert updated into members
+        setMembers([...members].sort(sortByName));
       } catch (error) {
         alert('Failed to create new object, with error code: ' + error.message);
       }
