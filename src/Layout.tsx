@@ -1,4 +1,5 @@
 import React from 'react';
+import BaseModal from 'react-responsive-modal';
 import styled from 'styled-components';
 
 export const Row = styled.div`
@@ -58,7 +59,7 @@ export const Description = styled.div`
 export const Input = styled.input`
   border: 0px solid ${({ theme }) => theme.grey300};
 
-  width: calc(100% - 0.5rem);
+  width: calc(100%-0.5rem);
   height: 1.6rem;
   border-radius: 0.5rem;
   padding: 0.25rem 0.5rem;
@@ -78,70 +79,94 @@ export const Input = styled.input`
   }
 `;
 
-export const Button = styled.button<{ size?: 'sm' | 'md' | 'lg', color?: string, outline?: boolean }>`
+export const Button = styled.button<{ size?: 'sm' | 'md' | 'lg', color?: string, hoverColor?: string; outline?: boolean }>`
   line-height: ${(props) => props.size ?
-    props.size === 'sm' ? '1.5rem' : '2.188rem'
+    props.size === 'sm' ? '1rem' : '2.188rem'
     : '2.188rem'};
   display: flex;
   align-items: center;
   font-size: ${(props) => props.size ?
     props.size === 'sm' ? '0.65rem' : '0.75rem'
     : '0.75rem'};
-  padding: 0 1.2rem;
+  padding: ${({ size }) => size ?
+    size === 'sm' ? '0.2rem 0.6rem' : '0 1.2rem'
+    : '0 1.2rem'};
 
   border-radius: 0.5rem;
   text-transform: uppercase;
   cursor: pointer;
   text-align: center;
-  transition: all .15s ease-in-out;
+  transition: all .15s ease -in -out;
   white-space: nowrap;
   border: 0;
-  background-color: ${({ theme, color, outline }) => outline
+  background-color: ${
+  ({ theme, color, outline }) => outline
     ? 'transparent'
-    : color ? theme[color] : theme.primary300};
-  color: ${({ theme, color, outline }) => outline
+    : color ? theme[color] : theme.primary300
+  };
+  color: ${
+  ({ theme, color, outline }) => outline
     ? color ? theme[color] : theme.primary300
-    : theme.onBackground};
+    : theme.onBackground
+  };
   letter-spacing: 0.04rem;
 
-  &:hover {
-    background-color: ${({ theme, color, outline }) => outline
+    &: hover {
+    background-color: ${
+  ({ theme, hoverColor, outline }) => outline
     ? 'transparent'
-    : color ? theme[color] : theme.primary500};
-    color: ${({ theme, color, outline }) => outline
+    : hoverColor ? theme[hoverColor] : theme.primary500
+  };
+    color: ${
+  ({ theme, color, outline }) => outline
     ? color ? theme[color] : theme.primary500
-    : theme.onBackground};
-  }
+    : theme.onBackground
+  };
+}
 
-  svg {
-    margin-right: 0.2rem;
-  }
+svg {
+  margin-right: 0.2rem;
+}
 `;
 
 export const FormGroup = styled.div<{ checked?: boolean }>`
-  display: ${(props) => props.checked ? 'flex' : 'block'};
-  margin: 0 0.5rem 0.7rem 0;
+display: ${ (props) => props.checked ? 'flex' : 'block'};
+margin: 0 0.5rem 0.7rem 0;
 `;
 
 export const Label = styled.label`
-  text-transform: uppercase;
-  padding: 0.25rem 0;
-  color: ${(props) => props.theme.grey500};
-  font-size: 0.9rem;
-  display: block;
+text-transform: uppercase;
+padding: 0.25rem 0;
+color: ${ (props) => props.theme.grey500};
+font-size: 0.9rem;
+display: block;
 `;
 
 export const TextArea = styled.textarea`
-  border: 0px solid ${({ theme }) => theme.grey300};
+border: 0px solid ${ ({ theme }) => theme.grey300};
+width: calc(100 %-0.5rem);
+height: 5.5rem;
+border-radius: 0.5rem;
+padding: 0.25rem 0.5rem;
+box-shadow: inset 0 0  0.3rem hsla(0, 0 %, 0 %, 0.2);
 
-  width: calc(100% - 0.5rem);
-  height: 5.5rem;
-  border-radius: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  box-shadow: inset 0 0  0.3rem hsla(0,0%,0%,0.2);
+  &: focus {
+  box-shadow: inset 0 0  0.3rem   ${ ({ theme }) => theme.primary300};
+  outline: 0;
+}
+`;
 
-  &:focus {
-    box-shadow: inset 0 0  0.3rem   ${({ theme }) => theme.primary300};
-    outline: 0;
-  }
+export const ModalBody = styled.div`
+padding: 1rem;
+`;
+
+export const ModalFooter = styled.div`
+background-color: ${ ({ theme }) => theme.grey300};
+padding: 1rem 2rem;
+display: flex;
+justify-content: space-between;
+border-radius: 0 0 0.25rem 0.25rem;
+`;
+
+export const Modal = styled(BaseModal)`
 `;

@@ -1,5 +1,8 @@
 export const theme = {
   onBackground: '#FFF',
+  danger300: '#fd9999',
+  danger400: '#f47a7a',
+  danger500: '#f85858',
   grey100: '#F8F9FA',
   grey200: '#E1E7EC',
   grey300: '#D5DDE5',
@@ -16,4 +19,5 @@ export const theme = {
   primary700: '#543196',
   primary800: '#3f2572',
   primary900: '#3d236d',
+
 }

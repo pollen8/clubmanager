@@ -22,6 +22,7 @@ import {
   SubHeading,
 } from '../Layout';
 import { AddMemberForm } from './AddMemberForm';
+import { DeleteConfirmation } from './DeleteConfirmation';
 import {
   Filter,
   ISearch,
@@ -93,17 +94,8 @@ export const Members: SFC<{}> = () => {
                     {member.createdAt && member.createdAt.toLocaleDateString()}
                   </Date>
                 </Name>
+                <DeleteConfirmation onDelete={() => deleteMember(member.id)} />
 
-                <Button size="sm"
-                  style={{
-                    position: 'absolute',
-                    top: '0.5rem',
-                    right: '0.5rem',
-                  }}
-                  color="grey500"
-                  onClick={() => deleteMember(member.id)}>
-                  X
-                </Button>
                 <Button
                   size="sm"
                   onClick={() => {
