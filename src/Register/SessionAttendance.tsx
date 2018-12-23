@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import {
   Card,
   CardBody,
-} from '../Layout';
+} from '../app/components/Layout';
 import { IRegister } from './Register';
 
 interface IProps {

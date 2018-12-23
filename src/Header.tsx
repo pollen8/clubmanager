@@ -19,7 +19,7 @@ import {
   Col,
   Container,
   Row,
-} from './Layout';
+} from './app/components/Layout';
 import { Menu } from './Menu';
 
 const Title = styled.h1`

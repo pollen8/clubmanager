@@ -5,7 +5,7 @@ import {
   FormGroup,
   Input,
   Label,
-} from '../Layout';
+} from '../app/components/Layout';
 import { IMembershipType } from './memberState';
 
 const memberOptions: Array<{ value: IMembershipType, label: string }> = [

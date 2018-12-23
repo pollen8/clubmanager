@@ -16,7 +16,7 @@ import {
   Container,
   Input,
   Row,
-} from '../Layout';
+} from '../app/components/Layout';
 import {
   IMember,
   memberState,

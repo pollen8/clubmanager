@@ -6,10 +6,13 @@ import { IoIosAddCircle } from 'react-icons/io';
 
 import {
   Button,
+  CardBody,
   FormGroup,
   Input,
   Label,
-} from '../Layout';
+  ModalFooter,
+  SlidePanel,
+} from '../app/components/Layout';
 import {
   IMember,
   IMembershipType,
@@ -40,44 +43,48 @@ export const AddMemberForm: React.SFC<IProps & React.HTMLAttributes<HTMLDivEleme
       }
     }, [initialData]);
     return (
-      <div>
-        <FormGroup>
-          <Label htmlFor="gameName">
-            Name
+      <SlidePanel>
+        <CardBody>
+          <FormGroup>
+            <Label htmlFor="gameName">
+              Name
         </Label>
-          <Input name="name" id="gameName"
-            value={name}
-            onChange={(e) => setName(e.target.value)} />
-        </FormGroup>
-        <FormGroup
-          checked>
-          <Label htmlFor="membership">
-            Is a member?
+            <Input name="name" id="gameName"
+              value={name}
+              onChange={(e) => setName(e.target.value)} />
+          </FormGroup>
+          <FormGroup
+            checked>
+            <Label htmlFor="membership">
+              Is a member?
           </Label>
-          <Input type="checkbox"
-            id="membership"
-            checked={membership === 'member'}
-            onChange={(e) => setMembership(e.target.checked ? 'member' : 'guest')} />
+            <Input type="checkbox"
+              id="membership"
+              checked={membership === 'member'}
+              onChange={(e) => setMembership(e.target.checked ? 'member' : 'guest')} />
 
-        </FormGroup>
-        <Button
-          outline
-          onClick={() => setSelected(null)}>
-          Clear
+          </FormGroup>
+        </CardBody>
+        <ModalFooter>
+          <Button
+            outline
+            onClick={() => setSelected(null)}>
+            Clear
           </Button>
 
-        <Button
-          onClick={() => {
-            id === ''
-              ? addMember({ name, membership, id })
-              : editMember({ name, membership, id })
-            setName('');
-            setMembership('guest');
-            setId('');
-          }}>
-          <IoIosAddCircle size="1rem" />
-          {initialData === null ? 'Add' : 'Update'}
-        </Button>
-      </div>
+          <Button
+            onClick={() => {
+              id === ''
+                ? addMember({ name, membership, id })
+                : editMember({ name, membership, id })
+              setName('');
+              setMembership('guest');
+              setId('');
+            }}>
+            <IoIosAddCircle size="1rem" />
+            {initialData === null ? 'Add' : 'Update'}
+          </Button>
+        </ModalFooter>
+      </SlidePanel>
     );
   }

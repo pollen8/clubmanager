@@ -8,14 +8,14 @@ import {
 import styled, { ThemeProvider } from 'styled-components';
 
 import { App } from './App';
+import {
+  Button,
+  Container,
+} from './app/components/Layout';
 import Auth from './Auth/Auth';
 import { Callback } from './Callback/Callback';
 import history from './history';
 import { Home } from './Home';
-import {
-  Button,
-  Container,
-} from './Layout';
 import { theme } from './theme';
 
 const Background = styled.div`

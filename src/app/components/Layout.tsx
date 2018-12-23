@@ -1,9 +1,30 @@
 import React from 'react';
 import BaseModal from 'react-responsive-modal';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+const sizes: { [key: string]: number } = {
+  desktop: 992,
+  tablet: 768,
+  phone: 576,
+}
+
+// Iterate through the sizes and create a media template
+const media = Object.keys(sizes).reduce((acc, label) => {
+  acc[label] = (...args: string[]) => {
+    return css`
+    @media (max-width: ${sizes[label] / 16}em) {
+      // @ts-ignore
+      ${css(...args)}
+    };
+  `;
+  }
+
+  return acc;
+}, {} as any);
 
 export const Row = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
 
 const size = (size?: number): string => {
@@ -17,14 +38,18 @@ const size = (size?: number): string => {
   `;
 }
 
-export const Col = styled.div<{ flexGrow?: number; size?: number }>`
+export const Col = styled.div<{ flexGrow?: number; size?: number, xs?: number; sm?: number; md?: number }>`
   flex-grow: ${(props) => props.flexGrow !== undefined ? props.flexGrow : 1};
   margin : 0 0.5rem;
-  ${(props) => size(props.size)}
+  ${(props) => size(props.size)};
+  ${(props) => media.desktop([size(props.md)])};
+  ${(props) => media.tablet([size(props.sm)])};
+  ${(props) => media.phone([size(props.xs)])};
 `;
 
 export const Container = styled.section`
   margin: 0 0.5rem;
+  
 `;
 
 export const SubHeading = styled.h2`
@@ -44,12 +69,23 @@ export const Card = styled.div`
   background-color: #fff;
   box-shadow: 0 0.1rem 0.2rem 0 hsla(0, 0%, 0%, 0.2);
   margin: 1rem 1rem 1rem 0;
+  ${media.desktop`background-color: red;`}
+  ${media.tablet`background-color: blue;`}
+  ${media.phone`background-color: black;`}
 `;
 
 export const CardBody = styled.div`
   padding: 1rem;
 `;
 
+
+export const SlidePanel = styled.div`
+  background-color: ${({ theme }) => theme.grey200};
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
 export const Description = styled.div`
   padding: 0.1rem;

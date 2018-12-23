@@ -19,5 +19,4 @@ export const theme = {
   primary700: '#543196',
   primary800: '#3f2572',
   primary900: '#3d236d',
-
-}
+};

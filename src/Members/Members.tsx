@@ -10,7 +10,7 @@ import {
 import { Spring } from 'react-spring';
 import styled from 'styled-components';
 
-import { Grid } from '../Grid';
+import { Grid } from '../app/components/Grid';
 import {
   Button,
   Card,
@@ -20,7 +20,7 @@ import {
   Name,
   Row,
   SubHeading,
-} from '../Layout';
+} from '../app/components/Layout';
 import { AddMemberForm } from './AddMemberForm';
 import { DeleteConfirmation } from './DeleteConfirmation';
 import {
@@ -130,25 +130,26 @@ export const Members: SFC<{}> = () => {
       </Col>
     </Row>
     <Row>
-      <Col size={2}>
+      <Col size={2} md={12}>
         <Filter
           search={search}
           setSearch={setSearch} />
       </Col>
-      <Col style={{ marginRight: '13rem' }}>
+      <Col md={12} style={{ marginRight: '13rem' }}>
         <Grid
           data={cards}
           height={210}
           columns={3} />
       </Col>
-      <div style={{ overflow: 'hidden', width: '12rem', position: 'absolute', right: '1rem' }}>
+      <div style={{ overflow: 'hidden', width: '14rem', position: 'absolute', right: '0', height: 'calc(100% - 8rem)' }}>
         <Spring
           config={{ tension: 210, friction: 14, clamp: true }}
-          from={{ width: !visible ? '12rem' : '0' }}
-          to={{ width: visible ? '0' : '12rem' }}
+          from={{ width: !visible ? '14rem' : '0' }}
+          to={{ width: visible ? '0' : '14rem' }}
         >
           {(style) => {
             return <div style={{
+              height: '100%',
               transform: `translate(${style.width}, 0)`,
 
             }}>

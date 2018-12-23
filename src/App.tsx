@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import { Route } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { Container } from './app/components/Layout';
 import { Dashboard } from './Dashboard';
 import { Header } from './Header';
-import { Container } from './Layout';
 import { Members } from './Members/Members';
 import { Register } from './Register/Register';
 
