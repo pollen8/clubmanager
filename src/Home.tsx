@@ -1,39 +1,36 @@
-import React, { Component } from 'react';
+import React, {
+  FC,
+  useContext,
+} from 'react';
 
-interface IProps {
-  auth: any;
-}
+import { AuthContext } from './Routes';
 
-export class Home extends Component<IProps> {
-  login() {
-    this.props.auth.login();
-  }
-  render() {
-    const { isAuthenticated } = this.props.auth;
-    return (
-      <div className="container">
-        {
-          isAuthenticated() && (
-            <h4>
-              You are logged in!
+export const Home: FC<{}> = () => {
+  const auth = useContext(AuthContext);
+  const { isAuthenticated } = auth;
+  return (
+    <div className="container">
+      {
+        isAuthenticated() && (
+          <h4>
+            You are logged in!
               </h4>
-          )
-        }
-        {
-          !isAuthenticated() && (
-            <h4>
-              You are not logged in! Please{' '}
-              <a
-                style={{ cursor: 'pointer' }}
-                onClick={this.login.bind(this)}
-              >
-                Log In
+        )
+      }
+      {
+        !isAuthenticated() && (
+          <h4>
+            You are not logged in! Please{' '}
+            <a
+              style={{ cursor: 'pointer' }}
+              onClick={() => auth.login()}
+            >
+              Log In
                 </a>
-              {' '}to continue.
+            {' '}to continue.
               </h4>
-          )
-        }
-      </div>
-    );
-  }
+        )
+      }
+    </div>
+  );
 }

@@ -1,4 +1,5 @@
 import React, {
+  FC,
   useEffect,
   useState,
 } from 'react';
@@ -24,7 +25,7 @@ interface IProps {
   initialData: null | IMember;
   setSelected: any;
 }
-export const AddMemberForm: React.SFC<IProps & React.HTMLAttributes<HTMLDivElement>>
+export const AddMemberForm: FC<IProps & React.HTMLAttributes<HTMLDivElement>>
   = ({ addMember, editMember, initialData, setSelected }) => {
     const [name, setName] = useState('');
     const [id, setId] = useState('');

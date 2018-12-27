@@ -2,17 +2,20 @@ import React from 'react';
 import BaseModal from 'react-responsive-modal';
 import styled, { css } from 'styled-components';
 
-const sizes: { [key: string]: number } = {
+type TMediaSize = 'desktop' | 'tablet' | 'phone' | 'largeDesktop';
+export const sizes: { [K in TMediaSize]: number } = {
   desktop: 992,
   tablet: 768,
   phone: 576,
+  largeDesktop: 1024,
 }
 
 // Iterate through the sizes and create a media template
-const media = Object.keys(sizes).reduce((acc, label) => {
-  acc[label] = (...args: string[]) => {
+export const media = Object.keys(sizes).reduce((acc, label) => {
+  acc[label] = (...args: TMediaSize[]) => {
+    const s = sizes[label as TMediaSize];
     return css`
-    @media (max-width: ${sizes[label] / 16}em) {
+    @media (max-width: ${s / 16}em) {
       // @ts-ignore
       ${css(...args)}
     };
@@ -49,7 +52,11 @@ export const Col = styled.div<{ flexGrow?: number; size?: number, xs?: number; s
 
 export const Container = styled.section`
   margin: 0 0.5rem;
-  
+`;
+
+export const Content = styled.div`
+  margin: 0 0.5rem;
+  flex-grow: 1;
 `;
 
 export const SubHeading = styled.h2`
@@ -84,7 +91,6 @@ export const SlidePanel = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 `;
 
 export const Description = styled.div`

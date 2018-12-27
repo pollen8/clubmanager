@@ -1,12 +1,17 @@
-import React, { Fragment } from 'react';
+import React, {
+  FC,
+  Fragment,
+  useContext,
+} from 'react';
 import { Route } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { Header } from './app/components/Header';
 import { Container } from './app/components/Layout';
 import { Dashboard } from './Dashboard';
-import { Header } from './Header';
 import { Members } from './Members/Members';
 import { Register } from './Register/Register';
+import { AuthContext } from './Routes';
 
 const Main = styled.section`
   margin-top: 0.1rem;
@@ -17,16 +22,16 @@ const Main = styled.section`
 `;
 
 interface IProps {
-  auth: any;
   history: any;
 }
 
-export const App: React.SFC<IProps> = ({ auth }) => {
+export const App: FC<IProps> = () => {
+  const auth = useContext(AuthContext);
   const { isAuthenticated } = auth;
 
   return (
     <Fragment>
-      <Header auth={auth} />
+      <Header />
       <Main>
         {
           isAuthenticated() &&

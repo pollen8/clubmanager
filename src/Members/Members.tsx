@@ -1,5 +1,5 @@
 import React, {
-  SFC,
+  FC,
   useState,
 } from 'react';
 import {
@@ -9,6 +9,7 @@ import {
 } from 'react-icons/io';
 import { Spring } from 'react-spring';
 import styled from 'styled-components';
+import { useMedia } from 'use-media';
 
 import { Grid } from '../app/components/Grid';
 import {
@@ -16,9 +17,10 @@ import {
   Card,
   CardBody,
   Col,
-  Container,
+  Content,
   Name,
   Row,
+  sizes,
   SubHeading,
 } from '../app/components/Layout';
 import { AddMemberForm } from './AddMemberForm';
@@ -56,11 +58,13 @@ const Date = styled.div`
   }
 `;
 
-export const Members: SFC<{}> = () => {
+export const Members: FC<{}> = () => {
   const [search, setSearch] = useState<ISearch>({
     membership: '',
     name: '',
   });
+  const f = sizes;
+  const isWide = useMedia(`(min-width: ${sizes.desktop}px)`);
   const [visible, showForm] = useState(false);
   const [selected, setSelected] = useState<IMember | null>(null);
   const { members, addMember, deleteMember, editMember } = memberState([]);
@@ -114,7 +118,7 @@ export const Members: SFC<{}> = () => {
       index,
     }))
 
-  return <Container>
+  return <Content>
     <Row>
       <Col flexGrow={2}>
         <SubHeading>Players</SubHeading>
@@ -138,14 +142,20 @@ export const Members: SFC<{}> = () => {
       <Col md={12} style={{ marginRight: '13rem' }}>
         <Grid
           data={cards}
-          height={210}
-          columns={3} />
+          height={isWide ? 190 : 160}
+          columns={isWide ? 3 : 1} />
       </Col>
-      <div style={{ overflow: 'hidden', width: '14rem', position: 'absolute', right: '0', height: 'calc(100% - 8rem)' }}>
+      <div style={{ overflow: 'hidden', width: '14rem', position: 'fixed', right: '0', height: 'calc(100%)' }}>
         <Spring
           config={{ tension: 210, friction: 14, clamp: true }}
-          from={{ width: !visible ? '14rem' : '0' }}
-          to={{ width: visible ? '0' : '14rem' }}
+          from={{
+            right: !visible ? '0' : '-14rem',
+            width: !visible ? '14rem' : '0',
+          }}
+          to={{
+            right: !visible ? '-14rem' : '0',
+            width: visible ? '0' : '14rem',
+          }}
         >
           {(style) => {
             return <div style={{
@@ -165,6 +175,6 @@ export const Members: SFC<{}> = () => {
         </Spring>
       </div>
     </Row>
-  </Container>
+  </Content>
 };
 

@@ -1,5 +1,5 @@
 import React, {
-  SFC,
+  FC,
   useEffect,
   useState,
 } from 'react';
@@ -47,7 +47,7 @@ const setPaid = (registry: IRegister, member: IMember, paid: boolean): IRegister
   return registry;
 }
 
-export const Register: SFC<{}> = () => {
+export const Register: FC<{}> = () => {
   const { members } = memberState([]);
   const [registry, setRegistry] = useState<IRegister>({
     attendance: [],

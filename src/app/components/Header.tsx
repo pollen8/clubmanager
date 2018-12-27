@@ -1,8 +1,8 @@
-import { Auth0UserProfile } from 'auth0-js';
 import React, {
+  FC,
   Fragment,
-  useEffect,
-  useState,
+  useContext,
+  useRef,
 } from 'react';
 import {
   Manager,
@@ -12,6 +12,9 @@ import {
 import Select from 'react-select';
 import styled from 'styled-components';
 
+import { AuthContext } from '../../Routes';
+import { useDropdown } from '../hooks/dropdown';
+import { loadProfile } from '../hooks/loadProfile';
 import {
   Button,
   Card,
@@ -19,7 +22,7 @@ import {
   Col,
   Container,
   Row,
-} from './app/components/Layout';
+} from './Layout';
 import { Menu } from './Menu';
 
 const Title = styled.h1`
@@ -37,31 +40,12 @@ const CircleImg = styled.img<{ width?: number, height?: number }>`
   cursor: pointer;
 `;
 
-let circleRef: any;
-
-export const Header: React.SFC<{ auth: any }> = ({ auth }) => {
+export const Header: FC<{}> = () => {
+  const auth = useContext(AuthContext);
   const { isAuthenticated } = auth;
-  const [profile, setProfile] = useState<Partial<Auth0UserProfile>>({});
-  const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
-  useEffect(() => {
-
-    const { userProfile, getProfile } = auth;
-    if (!userProfile && isAuthenticated()) {
-      getProfile((err: any, profile: Auth0UserProfile) => {
-        setProfile(profile);
-      });
-    } else {
-      setProfile(userProfile);
-    }
-  }, [])
-  useEffect(() => {
-    document.addEventListener('click', (e: any) => {
-      if (e.path.indexOf(circleRef) !== -1) {
-        return;
-      }
-      setDropdownVisible(false);
-    });
-  }, []);
+  const circleRef = useRef(null);
+  const [profile] = loadProfile(auth);
+  const [dropdownVisible, setDropdownVisible] = useDropdown(circleRef);
   return (
     <Container>
       <Row style={{ alignItems: 'center' }}>
@@ -95,7 +79,7 @@ export const Header: React.SFC<{ auth: any }> = ({ auth }) => {
                   value={{ value: '2018', label: '2018 - 2019' }}
                 />
               </div>
-              <div ref={(ref) => circleRef = ref}>
+              <div ref={circleRef}>
                 <Manager>
                   <Reference>
                     {({ ref }) => (
@@ -114,6 +98,7 @@ export const Header: React.SFC<{ auth: any }> = ({ auth }) => {
                         style={{
                           ...style,
                           left: '-120px',
+                          opacity: 1,
                           display: dropdownVisible ? 'block' : 'none',
                         }}
                         data-placement={placement}>

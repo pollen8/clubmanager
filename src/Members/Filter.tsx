@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Select from 'react-select';
 
 import {
@@ -25,7 +25,7 @@ export interface IProps {
   search: ISearch;
 }
 
-export const Filter: React.SFC<IProps> = ({ setSearch, search }) => {
+export const Filter: FC<IProps> = ({ setSearch, search }) => {
   return <div>
     <FormGroup>
       <Label>Filter</Label>

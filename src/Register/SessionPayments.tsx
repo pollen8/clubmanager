@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Spring } from 'react-spring';
 import styled from 'styled-components';
 
@@ -16,7 +16,7 @@ const StatsCard = styled(Card)`
   color: ${({ theme }) => theme.primary500};
 `;
 
-export const SessionPayments: React.SFC<IProps> = ({ registry }) => {
+export const SessionPayments: FC<IProps> = ({ registry }) => {
   const total = registry.attendance.filter((l) => l.attended && l.member.membership === 'guest').length;
   const paid = registry.attendance.filter((l) => l.paid && l.member.membership === 'guest').length;
   const percent = total === 0 ? 1 : (paid / total);

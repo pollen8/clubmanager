@@ -1,6 +1,9 @@
 import './App.css';
 
-import React, { Component } from 'react';
+import React, {
+  Component,
+  createContext,
+} from 'react';
 import {
   Route,
   Router,
@@ -8,10 +11,6 @@ import {
 import styled, { ThemeProvider } from 'styled-components';
 
 import { App } from './App';
-import {
-  Button,
-  Container,
-} from './app/components/Layout';
 import Auth from './Auth/Auth';
 import { Callback } from './Callback/Callback';
 import history from './history';
@@ -21,9 +20,13 @@ import { theme } from './theme';
 const Background = styled.div`
   height: 100%;
   color: ${({ theme }) => theme.grey800};
+  display: flex;
+  flex-direction: column;
 `;
 
 const auth = new Auth();
+
+export const AuthContext = createContext<any>(null);
 
 const handleAuthentication = ({ location }: any) => {
   if (/access_token|id_token|error/.test(location.hash)) {
@@ -37,14 +40,16 @@ class Routes extends Component {
     return (
       <Router history={history}>
         <ThemeProvider theme={theme}>
-          <Background>
-            <Route path="/" render={(props) => <App auth={auth} {...props} />} />
-            <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
-            <Route path="/callback" render={(props) => {
-              handleAuthentication(props);
-              return <Callback {...props} />
-            }} />
-          </Background>
+          <AuthContext.Provider value={auth}>
+            <Background>
+              <Route path="/" render={(props) => <App {...props} />} />
+              <Route path="/home" render={(props) => <Home />} />
+              <Route path="/callback" render={(props) => {
+                handleAuthentication(props);
+                return <Callback {...props} />
+              }} />
+            </Background>
+          </AuthContext.Provider>
         </ThemeProvider >
       </Router>
     );
