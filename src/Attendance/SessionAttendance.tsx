@@ -6,19 +6,19 @@ import {
   Card,
   CardBody,
 } from '../app/components/Layout';
-import { IRegister } from './Register';
+import { IAttendance } from './attendanceState';
 
 interface IProps {
-  registry: IRegister;
+  attendance: IAttendance[];
 }
 
 const StatsCard = styled(Card)`
   color: ${({ theme }) => theme.primary500};
 `;
 
-export const SessionAttendance: FC<IProps> = ({ registry }) => {
-  const total = registry.attendance.length;
-  const attending = registry.attendance.filter((l) => l.attended).length;
+export const SessionAttendance: FC<IProps> = ({ attendance }) => {
+  const total = attendance.length;
+  const attending = attendance.filter((l) => l.attended).length;
   const percent = total === 0 ? 0 : (attending / total);
   return (
     <StatsCard>

@@ -30,14 +30,16 @@ export const Row = styled.div`
   flex-wrap: wrap;
 `;
 
-const size = (size?: number): string => {
+const size = (size?: number, margin?: number): string => {
   if (!size) {
     return '';
   }
-  const percent = size / 12 * 100;
+  const percent = margin
+    ? `calc(${size / 12 * 100}% - ${2 * margin}rem)`
+    : `${size / 12 * 100}%`;
   return `
-  flex: 0 0 ${percent}%;
-  max-width:${percent}%;
+  flex: 0 0 ${percent};
+  max-width:${percent};
   `;
 }
 
@@ -45,9 +47,9 @@ export const Col = styled.div<{ flexGrow?: number; size?: number, xs?: number; s
   flex-grow: ${(props) => props.flexGrow !== undefined ? props.flexGrow : 1};
   margin : 0 0.5rem;
   ${(props) => size(props.size)};
-  ${(props) => media.desktop([size(props.md)])};
-  ${(props) => media.tablet([size(props.sm)])};
-  ${(props) => media.phone([size(props.xs)])};
+  ${(props) => media.desktop([size(props.md, 0.5)])};
+  ${(props) => media.tablet([size(props.sm, 0.5)])};
+  ${(props) => media.phone([size(props.xs, 0.5)])};
 `;
 
 export const Container = styled.section`
@@ -76,9 +78,6 @@ export const Card = styled.div`
   background-color: #fff;
   box-shadow: 0 0.1rem 0.2rem 0 hsla(0, 0%, 0%, 0.2);
   margin: 1rem 1rem 1rem 0;
-  ${media.desktop`background-color: red;`}
-  ${media.tablet`background-color: blue;`}
-  ${media.phone`background-color: black;`}
 `;
 
 export const CardBody = styled.div`

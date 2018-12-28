@@ -6,19 +6,19 @@ import {
   Card,
   CardBody,
 } from '../app/components/Layout';
-import { IRegister } from './Register';
+import { IAttendance } from './attendanceState';
 
 interface IProps {
-  registry: IRegister;
+  attendance: IAttendance[];
 }
 
 const StatsCard = styled(Card)`
   color: ${({ theme }) => theme.primary500};
 `;
 
-export const SessionPayments: FC<IProps> = ({ registry }) => {
-  const total = registry.attendance.filter((l) => l.attended && l.member.membership === 'guest').length;
-  const paid = registry.attendance.filter((l) => l.paid && l.member.membership === 'guest').length;
+export const SessionPayments: FC<IProps> = ({ attendance }) => {
+  const total = attendance.filter((l) => l.attended && l.member.membership === 'guest').length;
+  const paid = attendance.filter((l) => l.paid && l.member.membership === 'guest').length;
   const percent = total === 0 ? 1 : (paid / total);
   return (
     <StatsCard>

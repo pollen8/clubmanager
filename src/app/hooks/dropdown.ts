@@ -9,7 +9,6 @@ import {
 export const useDropdown = (trigger: MutableRefObject<any>): [boolean, Dispatch<SetStateAction<boolean>>] => {
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
 
-
   useEffect(() => {
     const close = (e: any) => {
       if (!trigger.current) {

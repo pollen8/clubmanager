@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 
-
 export const MenuLinks = () => {
   return (
     <Fragment>
@@ -12,7 +11,7 @@ export const MenuLinks = () => {
         <NavLink exact to="/members">Members</NavLink>
       </li>
       <li>
-        <NavLink exact to="/register">Register</NavLink>
+        <NavLink exact to="/attendance">Attendance</NavLink>
       </li>
     </Fragment>
   );
