@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "BHP Members": {
+      "applicationId": "bzrI10hnPZKZhlVRJZTS1xtzcPVNVLM4iZLhsyMf"
+    },
+    "_default": {
+      "link": "BHP Members"
+    }
+  }
+}
