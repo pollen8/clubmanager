@@ -211,3 +211,10 @@ border-radius: 0 0 0.25rem 0.25rem;
 
 export const Modal = styled(BaseModal)`
 `;
+
+export const Alert = styled.div`
+  background-color: ${({ theme }) => theme.danger100};
+  color: ${({ theme }) => theme.danger500};
+  padding: 1rem;
+  border-radius: 0.5rem;
+`;

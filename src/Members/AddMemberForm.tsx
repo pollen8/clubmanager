@@ -49,7 +49,7 @@ export const AddMemberForm: FC<IProps & React.HTMLAttributes<HTMLDivElement>>
           <FormGroup>
             <Label htmlFor="gameName">
               Name
-        </Label>
+            </Label>
             <Input name="name" id="gameName"
               value={name}
               onChange={(e) => setName(e.target.value)} />
