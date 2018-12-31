@@ -1,4 +1,5 @@
 import auth0, { Auth0UserProfile } from 'auth0-js';
+import Parse from 'parse';
 
 import history from '../history';
 
@@ -49,6 +50,7 @@ export default class Auth {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
+        Parse.User.become(authResult.idTokenPayload['https://pegasus.back4app.io/parse_session_token']);
         history.replace('/');
       } else if (err) {
         history.replace('/home');
