@@ -12,6 +12,7 @@ import { Attendance } from './Attendance/Attendance';
 import { Dashboard } from './Dashboard';
 import { Members } from './Members/Members';
 import { AuthContext } from './Routes';
+import { userState } from './User/userState';
 
 const Main = styled.section`
   margin-top: 0.1rem;
@@ -27,6 +28,7 @@ interface IProps {
 
 export const App: FC<IProps> = () => {
   const auth = useContext(AuthContext);
+  const { roles } = userState();
   const { isAuthenticated } = auth;
 
   return (
@@ -37,8 +39,13 @@ export const App: FC<IProps> = () => {
           isAuthenticated() &&
           <Container>
             <Route exact={true} path="/" component={Dashboard} />
-            <Route exact={true} path="/members" component={Members} />
-            <Route exact={true} path="/attendance" component={Attendance} />
+            {
+              roles.includes('Admin') &&
+              <Fragment>
+                <Route exact={true} path="/members" component={Members} />
+                <Route exact={true} path="/attendance" component={Attendance} />
+              </Fragment>
+            }
           </Container>
         }
       </Main>

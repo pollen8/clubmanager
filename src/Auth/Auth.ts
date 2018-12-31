@@ -65,8 +65,6 @@ export default class Auth {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
-    // navigate to the home route
-    history.replace('/dashboard');
   }
 
   logout() {
@@ -74,6 +72,7 @@ export default class Auth {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    Parse.User.logOut();
     // navigate to the home route
     history.replace('/home');
   }
