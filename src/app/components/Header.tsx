@@ -52,9 +52,7 @@ export const Header: FC<{}> = () => {
           <Title>Club Manager</Title>
         </Col>
         <Col flexGrow={2}>
-          {
-            isAuthenticated() && <Menu />
-          }
+          <Menu />
         </Col>
         {
           !isAuthenticated() && (

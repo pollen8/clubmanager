@@ -8,7 +8,7 @@ import Routes from './Routes';
 import * as serviceWorker from './serviceWorker';
 
 Parse.initialize('bzrI10hnPZKZhlVRJZTS1xtzcPVNVLM4iZLhsyMf', 'ayXeSDaLRor3kflz2i5Dmqvk7ztpBQ3pNM53Qjyq');
-Parse.serverURL = 'https://pegasus.back4app.io/'
+Parse.serverURL = 'https://parseapi.back4app.com//'
 
 ReactDOM.render(<Routes />, document.getElementById('root'));
 
