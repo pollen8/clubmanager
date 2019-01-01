@@ -12,6 +12,7 @@ import { Attendance } from './Attendance/Attendance';
 import { Dashboard } from './Dashboard';
 import { Members } from './Members/Members';
 import { AuthContext } from './Routes';
+import { User } from './User/User';
 import { userState } from './User/userState';
 
 const Main = styled.section`
@@ -44,6 +45,7 @@ export const App: FC<IProps> = () => {
               <Fragment>
                 <Route exact={true} path="/members" component={Members} />
                 <Route exact={true} path="/attendance" component={Attendance} />
+                <Route exact={true} path="/users" component={User} />
               </Fragment>
             }
           </Container>

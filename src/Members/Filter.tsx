@@ -26,29 +26,31 @@ export interface IProps {
 }
 
 export const Filter: FC<IProps> = ({ setSearch, search }) => {
-  return <div>
-    <FormGroup>
-      <Label>Filter</Label>
-      <Input
-        onChange={(e) => setSearch({
-          ...search,
-          name: e.target.value
-        })}
-        placeholder="...search"
-        name="search" />
-    </FormGroup>
-    <FormGroup>
-      <Label>membership</Label>
-      <Select
-        value={memberOptions.find((option) => option.value === search.membership)}
-        options={memberOptions}
-        onChange={(v: any) => {
-          setSearch({
+  return (
+    <div>
+      <FormGroup>
+        <Label>Filter</Label>
+        <Input
+          onChange={(e) => setSearch({
             ...search,
-            membership: v.value || '',
-          });
-        }}
-        id="search-is-member" />
-    </FormGroup>
-  </div>
+            name: e.target.value
+          })}
+          placeholder="...search"
+          name="search" />
+      </FormGroup>
+      <FormGroup>
+        <Label>membership</Label>
+        <Select
+          value={memberOptions.find((option) => option.value === search.membership)}
+          options={memberOptions}
+          onChange={(v: any) => {
+            setSearch({
+              ...search,
+              membership: v.value || '',
+            });
+          }}
+          id="search-is-member" />
+      </FormGroup>
+    </div>
+  );
 };

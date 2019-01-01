@@ -118,63 +118,65 @@ export const Members: FC<{}> = () => {
       index,
     }))
 
-  return <Content>
-    <Row>
-      <Col flexGrow={2}>
-        <SubHeading>Players</SubHeading>
-      </Col>
-      <Col flexGrow={0}>
+  return (
+    <Content>
+      <Row>
+        <Col flexGrow={2}>
+          <SubHeading>Players</SubHeading>
+        </Col>
+        <Col flexGrow={0}>
 
-        <Button size="sm"
-          color="grey500"
-          onClick={() => showForm(!visible)}>
-          <IoIosAddCircle size="1rem" />
-          Add
+          <Button size="sm"
+            color="grey500"
+            onClick={() => showForm(!visible)}>
+            <IoIosAddCircle size="1rem" />
+            Add
           </Button>
-      </Col>
-    </Row>
-    <Row>
-      <Col size={2} md={12}>
-        <Filter
-          search={search}
-          setSearch={setSearch} />
-      </Col>
-      <Col md={12} style={{ marginRight: '13rem' }}>
-        <Grid
-          data={cards}
-          height={isWide ? 190 : 160}
-          columns={isWide ? 3 : 1} />
-      </Col>
-      <div style={{ overflow: 'hidden', width: '14rem', position: 'fixed', right: '0', height: 'calc(100%)' }}>
-        <Spring
-          config={{ tension: 210, friction: 14, clamp: true }}
-          from={{
-            right: !visible ? '0' : '-14rem',
-            width: !visible ? '14rem' : '0',
-          }}
-          to={{
-            right: !visible ? '-14rem' : '0',
-            width: visible ? '0' : '14rem',
-          }}
-        >
-          {(style) => {
-            return <div style={{
-              height: '100%',
-              transform: `translate(${style.width}, 0)`,
+        </Col>
+      </Row>
+      <Row>
+        <Col size={2} md={12}>
+          <Filter
+            search={search}
+            setSearch={setSearch} />
+        </Col>
+        <Col md={12} style={{ marginRight: '13rem' }}>
+          <Grid
+            data={cards}
+            height={isWide ? 190 : 160}
+            columns={isWide ? 3 : 1} />
+        </Col>
+        <div style={{ overflow: 'hidden', width: '14rem', position: 'fixed', right: '0', height: 'calc(100%)' }}>
+          <Spring
+            config={{ tension: 210, friction: 14, clamp: true }}
+            from={{
+              right: !visible ? '0' : '-14rem',
+              width: !visible ? '14rem' : '0',
+            }}
+            to={{
+              right: !visible ? '-14rem' : '0',
+              width: visible ? '0' : '14rem',
+            }}
+          >
+            {(style) => {
+              return <div style={{
+                height: '100%',
+                transform: `translate(${style.width}, 0)`,
 
-            }}>
-              <AddMemberForm
-                initialData={selected}
-                setSelected={setSelected}
-                addMember={addMember}
-                editMember={editMember} />
-            </div>;
-          }
-          }
+              }}>
+                <AddMemberForm
+                  initialData={selected}
+                  setSelected={setSelected}
+                  addMember={addMember}
+                  editMember={editMember} />
+              </div>;
+            }
+            }
 
-        </Spring>
-      </div>
-    </Row>
-  </Content>
+          </Spring>
+        </div>
+      </Row>
+    </Content>
+  );
 };
 

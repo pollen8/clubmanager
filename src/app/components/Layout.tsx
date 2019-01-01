@@ -100,7 +100,7 @@ export const Description = styled.div`
 export const Input = styled.input`
   border: 0px solid ${({ theme }) => theme.grey300};
 
-  width: calc(100%-0.5rem);
+  width: calc(100% - 0.5rem);
   height: 1.6rem;
   border-radius: 0.5rem;
   padding: 0.25rem 0.5rem;

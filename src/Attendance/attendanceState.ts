@@ -77,6 +77,9 @@ export const attendanceState = (members: IMember[]) => {
         const attendanceQuery = new Parse.Query(AttendanceConnection);
         attendanceQuery.equalTo('objectId', row.id);
         const record = await attendanceQuery.first();
+        if (!record) {
+          return;
+        }
         const updated = await record.save(row);
         const index = attendance.findIndex((a) => a.id === updated.id);
         setAttendance([

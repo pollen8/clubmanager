@@ -19,6 +19,9 @@ export const MenuLinks = () => {
           <li>
             <NavLink exact to="/attendance">Attendance</NavLink>
           </li>
+          <li>
+            <NavLink exact to="/users">Users</NavLink>
+          </li>
         </Fragment>
       }
     </Fragment>
