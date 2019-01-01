@@ -9,7 +9,7 @@ import {
   Modal,
   ModalBody,
   ModalFooter,
-} from '../app/components/Layout';
+} from '../../app/components/Layout';
 
 interface IProps {
   onDelete: () => void;

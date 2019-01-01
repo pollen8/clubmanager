@@ -85,7 +85,7 @@ export const CardBody = styled.div`
 `;
 
 
-export const SlidePanel = styled.div`
+export const SlidePanelBody = styled.div`
   background-color: ${({ theme }) => theme.grey200};
   height: 100%;
   display: flex;

@@ -9,11 +9,9 @@ import {
   Popper,
   Reference,
 } from 'react-popper';
-import Select from 'react-select';
 import styled from 'styled-components';
 
 import { AuthContext } from '../../Routes';
-import { userState } from '../../User/userState';
 import { useDropdown } from '../hooks/dropdown';
 import { loadProfile } from '../hooks/loadProfile';
 import {
@@ -43,7 +41,6 @@ const CircleImg = styled.img<{ width?: number, height?: number }>`
 
 export const Header: FC<{}> = () => {
   const auth = useContext(AuthContext);
-  const { roles } = userState();
   const { isAuthenticated } = auth;
   const circleRef = useRef(null);
   const [profile] = loadProfile(auth);
@@ -71,21 +68,6 @@ export const Header: FC<{}> = () => {
         {
           isAuthenticated() && (
             <Fragment>
-              {
-                roles.includes('Admin') &&
-                <Fragment>
-                  <div>Season:{' '}</div>
-                  <div style={{ minWidth: '9rem' }}>
-                    <Select
-                      options={[
-                        { value: '2018', label: '2018 - 2019' },
-                        { value: '2019', label: '2019 - 2020' }
-                      ]}
-                      value={{ value: '2018', label: '2018 - 2019' }}
-                    />
-                  </div>
-                </Fragment>
-              }
               <div ref={circleRef}>
                 <Manager>
                   <Reference>
@@ -125,7 +107,6 @@ export const Header: FC<{}> = () => {
             </Fragment>
           )
         }
-
       </Row>
     </Container>
   );

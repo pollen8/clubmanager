@@ -5,8 +5,8 @@ import {
   FormGroup,
   Input,
   Label,
-} from '../app/components/Layout';
-import { IMembershipType } from './memberState';
+} from '../../app/components/Layout';
+import { IMembershipType } from '../memberState';
 
 const memberOptions: Array<{ value: IMembershipType, label: string }> = [
   { value: '', label: 'any' },

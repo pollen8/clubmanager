@@ -8,7 +8,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'bhp.eu.auth0.com',
     clientID: 'kNgXEPRYCGsdlTlrZnPZGtK7GeDRgnbu',
-    redirectUri: 'http://localhost:3000/callback',
+    redirectUri: `${document.location!.origin}/callback`,
     responseType: 'token id_token',
     scope: 'openid profile'
   });

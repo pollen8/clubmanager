@@ -24,6 +24,9 @@ export const MenuLinks = () => {
           </li>
         </Fragment>
       }
+      <li>
+        <NavLink exact to="/seasons">Seasons</NavLink>
+      </li>
     </Fragment>
   );
 }

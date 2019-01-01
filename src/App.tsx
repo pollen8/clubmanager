@@ -12,6 +12,7 @@ import { Attendance } from './Attendance/Attendance';
 import { Dashboard } from './Dashboard';
 import { Members } from './Members/Members';
 import { AuthContext } from './Routes';
+import { Season } from './Season/Season';
 import { User } from './User/User';
 import { userState } from './User/userState';
 
@@ -48,6 +49,7 @@ export const App: FC<IProps> = () => {
                 <Route exact={true} path="/users" component={User} />
               </Fragment>
             }
+            <Route exact={true} path="/seasons" component={Season} />
           </Container>
         }
       </Main>

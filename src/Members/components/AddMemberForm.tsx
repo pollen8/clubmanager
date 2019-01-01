@@ -12,12 +12,12 @@ import {
   Input,
   Label,
   ModalFooter,
-  SlidePanel,
-} from '../app/components/Layout';
+  SlidePanelBody,
+} from '../../app/components/Layout';
 import {
   IMember,
   IMembershipType,
-} from './memberState';
+} from '../memberState';
 
 interface IProps {
   addMember: (game: IMember) => void;
@@ -44,7 +44,7 @@ export const AddMemberForm: FC<IProps & React.HTMLAttributes<HTMLDivElement>>
       }
     }, [initialData]);
     return (
-      <SlidePanel>
+      <SlidePanelBody>
         <CardBody>
           <FormGroup>
             <Label htmlFor="gameName">
@@ -86,6 +86,6 @@ export const AddMemberForm: FC<IProps & React.HTMLAttributes<HTMLDivElement>>
             {initialData === null ? 'Add' : 'Update'}
           </Button>
         </ModalFooter>
-      </SlidePanel>
+      </SlidePanelBody>
     );
   }

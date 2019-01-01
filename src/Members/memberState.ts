@@ -13,7 +13,7 @@ export interface IMember {
   updatedAt?: Date;
 }
 
-const MemberConnection = Parse.Object.extend("Member");
+const MemberConnection = Parse.Object.extend('Member');
 const query = new Parse.Query(MemberConnection);
 const sortByName = (a: IMember, b: IMember) => a.name > b.name
   ? 1

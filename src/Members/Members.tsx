@@ -7,7 +7,6 @@ import {
   IoIosCalendar,
   IoIosMedal,
 } from 'react-icons/io';
-import { Spring } from 'react-spring';
 import styled from 'styled-components';
 import { useMedia } from 'use-media';
 
@@ -23,12 +22,13 @@ import {
   sizes,
   SubHeading,
 } from '../app/components/Layout';
-import { AddMemberForm } from './AddMemberForm';
-import { DeleteConfirmation } from './DeleteConfirmation';
+import { SlidePanel } from '../app/components/SlidePanel';
+import { AddMemberForm } from './components/AddMemberForm';
+import { DeleteConfirmation } from './components/DeleteConfirmation';
 import {
   Filter,
   ISearch,
-} from './Filter';
+} from './components/Filter';
 import {
   IMember,
   memberState,
@@ -125,7 +125,6 @@ export const Members: FC<{}> = () => {
           <SubHeading>Players</SubHeading>
         </Col>
         <Col flexGrow={0}>
-
           <Button size="sm"
             color="grey500"
             onClick={() => showForm(!visible)}>
@@ -146,35 +145,13 @@ export const Members: FC<{}> = () => {
             height={isWide ? 190 : 160}
             columns={isWide ? 3 : 1} />
         </Col>
-        <div style={{ overflow: 'hidden', width: '14rem', position: 'fixed', right: '0', height: 'calc(100%)' }}>
-          <Spring
-            config={{ tension: 210, friction: 14, clamp: true }}
-            from={{
-              right: !visible ? '0' : '-14rem',
-              width: !visible ? '14rem' : '0',
-            }}
-            to={{
-              right: !visible ? '-14rem' : '0',
-              width: visible ? '0' : '14rem',
-            }}
-          >
-            {(style) => {
-              return <div style={{
-                height: '100%',
-                transform: `translate(${style.width}, 0)`,
-
-              }}>
-                <AddMemberForm
-                  initialData={selected}
-                  setSelected={setSelected}
-                  addMember={addMember}
-                  editMember={editMember} />
-              </div>;
-            }
-            }
-
-          </Spring>
-        </div>
+        <SlidePanel visible={visible}>
+          <AddMemberForm
+            initialData={selected}
+            setSelected={setSelected}
+            addMember={addMember}
+            editMember={editMember} />
+        </SlidePanel>
       </Row>
     </Content>
   );
