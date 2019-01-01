@@ -50,7 +50,6 @@ export const userState = (userIds: string[] = []) => {
     (async () => {
       const query = new Parse.Query(Parse.User)
       const users = await query.find();
-      console.log('users', users);
       const ids = users.map((user: any) => user.id);
       const userRoles = await getUsersRoles(ids);
       setUsersRoles(userRoles);

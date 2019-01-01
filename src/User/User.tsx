@@ -59,7 +59,7 @@ export const User: FC<{}> = () => {
 
                       <Input type="checkbox"
                         id={id}
-                        disabled={isCurrentUser(user.id)}
+                        disabled={isCurrentUser(user.id) || user.id === 'r4JlfBfMqR'}
                         checked={user.roles.map((r) => r.name).includes(role.name)}
                         onChange={(e) => updateRole(user.id, role, e.target.checked)} />
                       <Label htmlFor={id}>

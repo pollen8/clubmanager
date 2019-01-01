@@ -9,15 +9,11 @@ import {
   Popper,
   Reference,
 } from 'react-popper';
-import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { useMedia } from 'use-media';
 
 import { useDropdown } from '../hooks/dropdown';
-import {
-  Card,
-  media,
-} from './Layout';
+import { Card } from './Layout';
 import { MenuLinks } from './MenuLinks';
 
 const Wrapper = styled.ul`
