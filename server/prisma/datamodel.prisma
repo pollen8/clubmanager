@@ -1,0 +1,38 @@
+type User {
+  id: ID! @unique
+  email: String! @unique
+  name: String
+  clubs: [Club!]
+}
+
+
+type Club {
+  id: ID! @unique
+  name: String! @unique
+}
+
+type Season {
+  id: ID! @unique
+  startDate: DateTime!
+  endDate: DateTime!
+  visitorFee: Int
+}
+
+enum MembershipType {
+  Member, Guest
+}
+
+type Member {
+  id: ID! @unique
+  name: String!
+  type: MembershipType!
+  seasons: [Season!]!
+}
+
+type Attendance {
+  id: ID! @unique
+  attended: Boolean
+  clubNight: DateTime
+  member: [Member!]
+  paid: Boolean
+}

@@ -1,49 +1,160 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Front end:
 
-## Available Scripts
+```
+cd client
+npm start
+```
 
-In the project directory, you can run:
+# Backend: 
+# Run server (MySQL and Prisma) & Start the GraphQL server
 
-### `npm start`
+```
+cd server
+docker-compose up -d && npm run start
+```
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Updating the database structure
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Edit `prisma/dataodel.prisma` then
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-To Publish to the live site, from the b4app folder 
-
-`b4a deploy`
+```
+prisma deploy
+```
 
 
-### `npm run eject`
+Navigate to [http://localhost:4000](http://localhost:4000) in your browser to explore the API of your GraphQL server in a [GraphQL Playground](https://github.com/prisma/graphql-playground).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 5. Using the GraphQL API
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The schema that specifies the API operations of your GraphQL server is defined in [`./src/schema.graphql`](./src/schema.graphql). Below are a number of operations that you can send to the API using the GraphQL Playground.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Feel free to adjust any operation by adding or removing fields. The GraphQL Playground helps you with its auto-completion and query validation features.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### Retrieve all published posts and their authors
 
-## Learn More
+```graphql
+query {
+  feed {
+    id
+    title
+    content
+    published
+    author {
+      id
+      name
+      email
+    }
+  }
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<Details><Summary><strong>See more API operations</strong></Summary>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Create a new user
+
+```graphql
+mutation {
+  signupUser(
+    name: "Sarah"
+    email: "sarah@prisma.io"
+  ) {
+    id
+  }
+}
+```
+
+#### Create a new draft
+
+```graphql
+mutation {
+  createDraft(
+    title: "Join the Prisma Slack"
+    content: "https://slack.prisma.io"
+    authorEmail: "alice@prisma.io"
+  ) {
+    id
+    published
+  }
+}
+```
+
+#### Publish an existing draft
+
+```graphql
+mutation {
+  publish(id: "__POST_ID__") {
+    id
+    published
+  }
+}
+```
+
+> **Note**: You need to replace the `__POST_ID__`-placeholder with an actual `id` from a `Post` item. You can find one e.g. using the `filterPosts`-query.
+
+#### Search for posts with a specific title or content
+
+```graphql
+{
+  filterPosts(searchString: "graphql") {
+    id
+    title
+    content
+    published 
+    author {
+      id
+      name
+      email
+    }
+  }
+}
+```
+
+#### Retrieve a single post
+
+```graphql
+{
+  post(id: "__POST_ID__") {
+    id
+    title
+    content
+    published
+    author {
+      id
+      name
+      email
+    }
+  }
+}
+```
+
+> **Note**: You need to replace the `__POST_ID__`-placeholder with an actual `id` from a `Post` item. You can find one e.g. using the `filterPosts`-query.
+
+#### Delete a post
+
+```graphql
+mutation {
+  deletePost(id: "__POST_ID__") {
+    id
+  }
+}
+```
+
+> **Note**: You need to replace the `__POST_ID__`-placeholder with an actual `id` from a `Post` item. You can find one e.g. using the `filterPosts`-query.
+
+</Details>
+
+### 6. Changing the GraphQL schema
+
+After you made changes to `schema.graphql`, you need to update the generated types in `./src/generated/graphqlgen.ts` and potentially also adjust the resolver implementations in `./src/resolvers`:
+
+```
+yarn generate
+```
+
+This invokes [`graphqlgen`](https://github.com/prisma/graphqlgen) and updates `./src/generated/graphqlgen.ts` to incorporate the schema changes in your TS type definitions. It also generates scaffolded resolvers in `./src/generated/tmp/resolvers` that you might need to copy and paste into `./src/resolvers`. 
+
+## Next steps
+
+- [Use Prisma with an existing database](https://www.prisma.io/docs/-t003/)
+- [Explore the Prisma client API](https://www.prisma.io/client/client-typescript)
+- [Learn more about the GraphQL schema](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e/)

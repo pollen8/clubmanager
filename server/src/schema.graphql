@@ -1,0 +1,72 @@
+scalar DateTime
+
+
+
+type Query {
+  filterClubs(searchString: String): [Club!]!
+  filterUsers(searchString: String): [User!]!
+  filterAttendance(clubNight: DateTime!): [Attendance!]!
+  filterMembers(searchString: String): [Member!]!
+  filterSeasons(searchString: String): [Season!]!
+}
+
+type Mutation {
+  signupUser(email: String!, name: String): User!
+  createClub(name: String): Club!
+  deleteClub(id: ID!): Club
+  updateClub(club: ClubUpdate!): Club
+  upsertSeason(season: SeasonUpdate): Season!
+  deleteSeason(id: ID!): Season
+}
+
+
+input SeasonUpdate {
+  id: ID!
+  startDate: String
+  endDate: String
+  visitorFee: Int
+} 
+
+input ClubUpdate {
+  id: ID!
+  name: String
+}
+
+
+type User {
+  id: ID!
+  email: String!
+  name: String
+  clubs: [Club!]!
+}
+
+type Club {
+  id:  ID!
+  name: String
+}
+
+type Season {
+  id: ID!
+  startDate: DateTime!
+  endDate: DateTime!
+  visitorFee: Int
+}
+
+enum MembershipType {
+  Member, Guest
+}
+
+type Member {
+  id: ID!
+  name: String!
+  type: MembershipType!
+  seasons: [Season!]!
+}
+
+type Attendance {
+  id: ID!
+  attended: Boolean
+  clubNight: DateTime!
+  member: [Member!]
+  paid: Boolean
+}
