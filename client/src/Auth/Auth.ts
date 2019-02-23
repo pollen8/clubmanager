@@ -3,9 +3,6 @@ import auth0, {
   Auth0UserProfile,
 } from 'auth0-js';
 
-// import Parse from 'parse';
-import history from '../history';
-
 export class Auth {
 
   auth0 = new auth0.WebAuth({
@@ -29,6 +26,7 @@ export class Auth {
     this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.getProfile = this.getProfile.bind(this);
+    this.silentAuth();
   }
 
   login() {
@@ -36,6 +34,7 @@ export class Auth {
   }
 
   getAccessToken() {
+    debugger;
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
       throw new Error('No Access Token found');
@@ -90,18 +89,19 @@ export class Auth {
   }
 
   silentAuth() {
-    if (this.isAuthenticated()) {
-      return new Promise((resolve, reject) => {
-        this.auth0.checkSession({}, (err, authResult) => {
-          if (err) {
-            localStorage.removeItem(this.authFlag);
-            return reject(err);
-          }
-          this.setSession(authResult);
-          resolve();
-        });
+    // if (this.isAuthenticated()) {
+    return new Promise((resolve, reject) => {
+      this.auth0.checkSession({}, (err, authResult) => {
+        debugger;
+        if (err) {
+          localStorage.removeItem(this.authFlag);
+          return reject(err);
+        }
+        this.setSession(authResult);
+        resolve();
       });
-    }
+    });
+    // }
   }
 
   isAuthenticated() {

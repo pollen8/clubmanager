@@ -1,52 +1,47 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _A11yText = require('./A11yText');
-
-Object.defineProperty(exports, 'A11yText', {
+Object.defineProperty(exports, "A11yText", {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_A11yText).default;
+    return _A11yText.default;
+  }
+});
+Object.defineProperty(exports, "DummyInput", {
+  enumerable: true,
+  get: function get() {
+    return _DummyInput.default;
+  }
+});
+Object.defineProperty(exports, "NodeResolver", {
+  enumerable: true,
+  get: function get() {
+    return _NodeResolver.default;
+  }
+});
+Object.defineProperty(exports, "ScrollBlock", {
+  enumerable: true,
+  get: function get() {
+    return _ScrollBlock.default;
+  }
+});
+Object.defineProperty(exports, "ScrollCaptor", {
+  enumerable: true,
+  get: function get() {
+    return _ScrollCaptor.default;
   }
 });
 
-var _DummyInput = require('./DummyInput');
+var _A11yText = _interopRequireDefault(require("./A11yText"));
 
-Object.defineProperty(exports, 'DummyInput', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_DummyInput).default;
-  }
-});
+var _DummyInput = _interopRequireDefault(require("./DummyInput"));
 
-var _NodeResolver = require('./NodeResolver');
+var _NodeResolver = _interopRequireDefault(require("./NodeResolver"));
 
-Object.defineProperty(exports, 'NodeResolver', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_NodeResolver).default;
-  }
-});
+var _ScrollBlock = _interopRequireDefault(require("./ScrollBlock"));
 
-var _ScrollBlock = require('./ScrollBlock');
-
-Object.defineProperty(exports, 'ScrollBlock', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_ScrollBlock).default;
-  }
-});
-
-var _ScrollCaptor = require('./ScrollCaptor');
-
-Object.defineProperty(exports, 'ScrollCaptor', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_ScrollCaptor).default;
-  }
-});
+var _ScrollCaptor = _interopRequireDefault(require("./ScrollCaptor"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

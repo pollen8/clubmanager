@@ -6,6 +6,7 @@ import React, {
   createContext,
 } from 'react';
 import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import {
   Route,
   Router,
@@ -36,18 +37,13 @@ const handleAuthentication = ({ location }: any) => {
   }
 }
 
-/*
-request: (operation) => {
-    operation.setContext((context) => ({
-      headers: {
-        ...context.headers,
-        authorization: auth.getIdToken(),
-      },
-    }));
-  },
-  */
+auth.silentAuth();
+console.log('auth, ', Auth, auth, auth.getIdToken());
 const client = new ApolloClient({
   request: async (operation) => {
+    debugger;
+    await auth.silentAuth();
+    console.log('id token now', auth.getIdToken());
     operation.setContext((context: any) => ({
       headers: {
         ...context.headers,
@@ -62,18 +58,20 @@ const client = new ApolloClient({
 class Routes extends Component {
 
   render() {
+
     return (
       <Router history={history}>
         <ThemeProvider theme={theme}>
           <ApolloProvider client={client}>
-            <AuthContext.Provider value={auth}>
-
-              <Background>
-                <Route path="/" render={(props: any) => <App {...props} />} />
-                <Route path="/home" render={(props: any) => <Home />} />
-                <Route path="/callback" component={Callback} />
-              </Background>
-            </AuthContext.Provider>
+            <ApolloHooksProvider client={client}>
+              <AuthContext.Provider value={auth}>
+                <Background>
+                  <Route path="/" render={(props: any) => <App {...props} />} />
+                  <Route path="/home" render={(props: any) => <Home />} />
+                  <Route path="/callback" component={Callback} />
+                </Background>
+              </AuthContext.Provider>
+            </ApolloHooksProvider>
           </ApolloProvider>
         </ThemeProvider>
       </Router >

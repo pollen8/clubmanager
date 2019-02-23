@@ -16,6 +16,9 @@ export const MenuLinks = () => {
         roles.includes('Admin') &&
         <Fragment>
           <li>
+            <NavLink exact to="/clubs">Clubs</NavLink>
+          </li>
+          <li>
             <NavLink exact to="/members">Members</NavLink>
           </li>
           <li>

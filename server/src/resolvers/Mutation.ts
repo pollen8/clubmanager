@@ -2,22 +2,38 @@ import { AuthenticationError } from 'apollo-server';
 
 import { MutationResolvers } from '../generated/graphqlgen';
 import {
+  ClubCreateInput,
+  ClubUpdateDataInput,
+  ClubUpdateInput,
   SeasonCreateInput,
   SeasonUpdateInput,
 } from '../generated/prisma-client';
 
-const clubResolvers: Pick<MutationResolvers.Type, 'createClub' | 'deleteClub' | 'updateClub'> = {
-  createClub: (parent, { name }, ctx) => {
-    return ctx.prisma.createClub({
-      name,
-    })
-  },
+const clubResolvers: Pick<MutationResolvers.Type, 'deleteClub' | 'upsertClub'> = {
   deleteClub: (parent, { id }, ctx) => {
-    // @TODO delete clubs seasons via deleteSeason()
     return ctx.prisma.deleteClub({ id });
   },
-  updateClub: (parent, { club }, ctx) => {
-    return ctx.prisma.updateClub({ data: club, where: { id: club.id } });
+  upsertClub: (parent, { club }, ctx) => {
+    const create: ClubCreateInput = {
+      name: String(club.name),
+      description: String(club.description),
+    };
+    const update: ClubUpdateInput = {
+      name: String(club.name),
+      description: String(club.description),
+    }
+    const where = {
+      id: club.id,
+    }
+    console.log('----- upsert club');
+    console.log('where', where);
+    console.log('create', create);
+    console.log('update,', update);
+    return ctx.prisma.upsertClub({
+      where,
+      create,
+      update,
+    });
   },
 }
 
@@ -32,8 +48,6 @@ export const Mutation: MutationResolvers.Type = {
       email,
     })
   },
-
-
 
   deleteSeason: async (parent, { id }, ctx) => {
     try {

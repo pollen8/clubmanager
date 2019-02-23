@@ -9,6 +9,7 @@ type User {
 type Club {
   id: ID! @unique
   name: String! @unique
+  description: String
 }
 
 type Season {

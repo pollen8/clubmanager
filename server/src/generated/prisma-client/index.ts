@@ -325,6 +325,8 @@ export type ClubOrderByInput =
   | "id_DESC"
   | "name_ASC"
   | "name_DESC"
+  | "description_ASC"
+  | "description_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -439,6 +441,7 @@ export interface SeasonSubscriptionWhereInput {
 
 export interface ClubUpdateManyMutationInput {
   name?: String;
+  description?: String;
 }
 
 export interface AttendanceWhereInput {
@@ -478,6 +481,7 @@ export interface AttendanceWhereInput {
 
 export interface ClubUpdateInput {
   name?: String;
+  description?: String;
 }
 
 export interface ClubSubscriptionWhereInput {
@@ -493,6 +497,7 @@ export interface ClubSubscriptionWhereInput {
 
 export interface ClubCreateInput {
   name: String;
+  description?: String;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -534,6 +539,20 @@ export interface ClubWhereInput {
   name_not_starts_with?: String;
   name_ends_with?: String;
   name_not_ends_with?: String;
+  description?: String;
+  description_not?: String;
+  description_in?: String[] | String;
+  description_not_in?: String[] | String;
+  description_lt?: String;
+  description_lte?: String;
+  description_gt?: String;
+  description_gte?: String;
+  description_contains?: String;
+  description_not_contains?: String;
+  description_starts_with?: String;
+  description_not_starts_with?: String;
+  description_ends_with?: String;
+  description_not_ends_with?: String;
   AND?: ClubWhereInput[] | ClubWhereInput;
   OR?: ClubWhereInput[] | ClubWhereInput;
   NOT?: ClubWhereInput[] | ClubWhereInput;
@@ -703,6 +722,7 @@ export interface MemberUpdateDataInput {
 
 export interface ClubUpdateManyDataInput {
   name?: String;
+  description?: String;
 }
 
 export interface SeasonUpdateManyInput {
@@ -751,6 +771,20 @@ export interface ClubScalarWhereInput {
   name_not_starts_with?: String;
   name_ends_with?: String;
   name_not_ends_with?: String;
+  description?: String;
+  description_not?: String;
+  description_in?: String[] | String;
+  description_not_in?: String[] | String;
+  description_lt?: String;
+  description_lte?: String;
+  description_gt?: String;
+  description_gte?: String;
+  description_contains?: String;
+  description_not_contains?: String;
+  description_starts_with?: String;
+  description_not_starts_with?: String;
+  description_ends_with?: String;
+  description_not_ends_with?: String;
   AND?: ClubScalarWhereInput[] | ClubScalarWhereInput;
   OR?: ClubScalarWhereInput[] | ClubScalarWhereInput;
   NOT?: ClubScalarWhereInput[] | ClubScalarWhereInput;
@@ -886,6 +920,7 @@ export interface SeasonUpdateManyWithWhereNestedInput {
 
 export interface ClubUpdateDataInput {
   name?: String;
+  description?: String;
 }
 
 export interface MemberUpdateManyWithWhereNestedInput {
@@ -1071,11 +1106,13 @@ export interface SeasonPreviousValuesSubscription
 export interface Club {
   id: ID_Output;
   name: String;
+  description?: String;
 }
 
 export interface ClubPromise extends Promise<Club>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  description: () => Promise<String>;
 }
 
 export interface ClubSubscription
@@ -1083,6 +1120,7 @@ export interface ClubSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BatchPayload {
@@ -1573,6 +1611,7 @@ export interface SeasonSubscription
 export interface ClubPreviousValues {
   id: ID_Output;
   name: String;
+  description?: String;
 }
 
 export interface ClubPreviousValuesPromise
@@ -1580,6 +1619,7 @@ export interface ClubPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  description: () => Promise<String>;
 }
 
 export interface ClubPreviousValuesSubscription
@@ -1587,6 +1627,7 @@ export interface ClubPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
 }
 
 export interface AggregateClub {

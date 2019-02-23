@@ -1,20 +1,16 @@
-import React, {
-  FC,
-  Fragment,
-} from 'react';
+import React, { FC } from 'react';
 import { Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Header } from './app/components/Header';
 import { Container } from './app/components/Layout';
 import { Attendance } from './Attendance/Attendance';
+import { Club } from './Club/Club';
 import { Dashboard } from './Dashboard';
 import { Members } from './Members/Members';
 import { AuthContext } from './Routes';
 import { Season } from './Season/Season';
 import { User } from './User/User';
-
-// import { userState } from './User/userState';
 
 const Main = styled.section`
   margin-top: 0.1rem;
@@ -36,27 +32,27 @@ export const App: FC<IProps> = () => {
     <AuthContext.Consumer>
       {
         ({ isAuthenticated }) =>
-          <Fragment>
+          <>
             <Header />
             <Main>
-
               {
                 isAuthenticated() &&
                 <Container>
                   <Route exact={true} path="/" component={Dashboard} />
                   {
                     roles.includes('Admin') &&
-                    <Fragment>
+                    <>
+                      <Route exact={true} path="/clubs" component={Club} />
                       <Route exact={true} path="/members" component={Members} />
                       <Route exact={true} path="/attendance" component={Attendance} />
                       <Route exact={true} path="/users" component={User} />
-                    </Fragment>
+                    </>
                   }
                   <Route exact={true} path="/seasons" component={Season} />
                 </Container>
               }
             </Main>
-          </Fragment>
+          </>
       }
     </AuthContext.Consumer>
   );

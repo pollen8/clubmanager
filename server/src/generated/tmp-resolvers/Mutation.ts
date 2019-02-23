@@ -8,13 +8,10 @@ export const Mutation: MutationResolvers.Type = {
   signupUser: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   },
-  createClub: (parent, args, ctx) => {
-    throw new Error("Resolver not implemented");
-  },
   deleteClub: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   },
-  updateClub: (parent, args, ctx) => {
+  upsertClub: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   },
   upsertSeason: (parent, args, ctx) => {

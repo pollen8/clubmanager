@@ -11,12 +11,16 @@ import { prisma } from './generated/prisma-client';
 import { resolvers } from './resolvers';
 
 const client = jwksClient({
-  jwksUri: `https://<YOUR_AUTH0_DOMAIN>/.well-known/jwks.json`
+  jwksUri: `https://bhp.eu.auth0.com/.well-known/jwks.json`
 });
 
 function getKey(header: any, cb: any) {
   client.getSigningKey(header.kid, function (err, key) {
+    console.log('---------------------');
+    // console.log('header', header);
+    // console.log('key', key);
     var signingKey = key.publicKey || key.rsaPublicKey;
+    // console.log('signed key', signingKey);
     cb(null, signingKey);
   });
 }
@@ -33,20 +37,20 @@ const server = new ApolloServer({
   resolvers: resolvers as any,
   context:
     ({ req }: any) => {
-      console.log('auth req', req);
-      const token = req.headers.authorization;
-      const user = new Promise((resolve, reject) => {
-        jwt.verify(token, getKey, options, (err, decoded: any) => {
-          console.log('auth', err, decoded);
-          if (err) {
-            return reject(err);
-          }
-          resolve(decoded.email);
-        });
-      });
+      // console.log('auth req', req.headers);
+      // const token = req.headers.authorization;
+      // const user = new Promise((resolve, reject) => {
+      //   jwt.verify(token, getKey, options, (err, decoded: any) => {
+      //     console.log('auth', err, decoded);
+      //     if (err) {
+      //       return reject(err);
+      //     }
+      //     resolve(decoded.email);
+      //   });
+      // });
 
       return {
-        user,
+        // user,
         prisma,
       };
     },

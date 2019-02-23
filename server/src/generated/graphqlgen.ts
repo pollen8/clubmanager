@@ -105,7 +105,9 @@ export namespace QueryResolvers {
 export namespace ClubResolvers {
   export const defaultResolvers = {
     id: (parent: Club) => parent.id,
-    name: (parent: Club) => parent.name
+    name: (parent: Club) => parent.name,
+    description: (parent: Club) =>
+      parent.description === undefined ? null : parent.description
   };
 
   export type IdResolver = (
@@ -122,6 +124,13 @@ export namespace ClubResolvers {
     info: GraphQLResolveInfo
   ) => string | null | Promise<string | null>;
 
+  export type DescriptionResolver = (
+    parent: Club,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | null | Promise<string | null>;
+
   export interface Type {
     id: (
       parent: Club,
@@ -131,6 +140,13 @@ export namespace ClubResolvers {
     ) => string | Promise<string>;
 
     name: (
+      parent: Club,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | null | Promise<string | null>;
+
+    description: (
       parent: Club,
       args: {},
       ctx: Context,
@@ -427,6 +443,7 @@ export namespace MutationResolvers {
   export interface ClubUpdate {
     id: string;
     name?: string | null;
+    description?: string | null;
   }
   export interface SeasonUpdate {
     id: string;
@@ -440,16 +457,12 @@ export namespace MutationResolvers {
     name?: string | null;
   }
 
-  export interface ArgsCreateClub {
-    name?: string | null;
-  }
-
   export interface ArgsDeleteClub {
     id: string;
   }
 
-  export interface ArgsUpdateClub {
-    club: ClubUpdate;
+  export interface ArgsUpsertClub {
+    club?: ClubUpdate | null;
   }
 
   export interface ArgsUpsertSeason {
@@ -467,13 +480,6 @@ export namespace MutationResolvers {
     info: GraphQLResolveInfo
   ) => User | Promise<User>;
 
-  export type CreateClubResolver = (
-    parent: undefined,
-    args: ArgsCreateClub,
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => Club | Promise<Club>;
-
   export type DeleteClubResolver = (
     parent: undefined,
     args: ArgsDeleteClub,
@@ -481,12 +487,12 @@ export namespace MutationResolvers {
     info: GraphQLResolveInfo
   ) => Club | null | Promise<Club | null>;
 
-  export type UpdateClubResolver = (
+  export type UpsertClubResolver = (
     parent: undefined,
-    args: ArgsUpdateClub,
+    args: ArgsUpsertClub,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Club | null | Promise<Club | null>;
+  ) => Club | Promise<Club>;
 
   export type UpsertSeasonResolver = (
     parent: undefined,
@@ -510,13 +516,6 @@ export namespace MutationResolvers {
       info: GraphQLResolveInfo
     ) => User | Promise<User>;
 
-    createClub: (
-      parent: undefined,
-      args: ArgsCreateClub,
-      ctx: Context,
-      info: GraphQLResolveInfo
-    ) => Club | Promise<Club>;
-
     deleteClub: (
       parent: undefined,
       args: ArgsDeleteClub,
@@ -524,12 +523,12 @@ export namespace MutationResolvers {
       info: GraphQLResolveInfo
     ) => Club | null | Promise<Club | null>;
 
-    updateClub: (
+    upsertClub: (
       parent: undefined,
-      args: ArgsUpdateClub,
+      args: ArgsUpsertClub,
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Club | null | Promise<Club | null>;
+    ) => Club | Promise<Club>;
 
     upsertSeason: (
       parent: undefined,

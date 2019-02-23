@@ -143,6 +143,7 @@ type BatchPayload {
 type Club {
   id: ID!
   name: String!
+  description: String
 }
 
 type ClubConnection {
@@ -153,6 +154,7 @@ type ClubConnection {
 
 input ClubCreateInput {
   name: String!
+  description: String
 }
 
 input ClubCreateManyInput {
@@ -170,6 +172,8 @@ enum ClubOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  description_ASC
+  description_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -179,6 +183,7 @@ enum ClubOrderByInput {
 type ClubPreviousValues {
   id: ID!
   name: String!
+  description: String
 }
 
 input ClubScalarWhereInput {
@@ -210,6 +215,20 @@ input ClubScalarWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
   AND: [ClubScalarWhereInput!]
   OR: [ClubScalarWhereInput!]
   NOT: [ClubScalarWhereInput!]
@@ -235,14 +254,17 @@ input ClubSubscriptionWhereInput {
 
 input ClubUpdateDataInput {
   name: String
+  description: String
 }
 
 input ClubUpdateInput {
   name: String
+  description: String
 }
 
 input ClubUpdateManyDataInput {
   name: String
+  description: String
 }
 
 input ClubUpdateManyInput {
@@ -258,6 +280,7 @@ input ClubUpdateManyInput {
 
 input ClubUpdateManyMutationInput {
   name: String
+  description: String
 }
 
 input ClubUpdateManyWithWhereNestedInput {
@@ -305,6 +328,20 @@ input ClubWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
   AND: [ClubWhereInput!]
   OR: [ClubWhereInput!]
   NOT: [ClubWhereInput!]

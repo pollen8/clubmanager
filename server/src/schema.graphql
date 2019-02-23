@@ -12,9 +12,8 @@ type Query {
 
 type Mutation {
   signupUser(email: String!, name: String): User!
-  createClub(name: String): Club!
   deleteClub(id: ID!): Club
-  updateClub(club: ClubUpdate!): Club
+  upsertClub(club: ClubUpdate): Club!
   upsertSeason(season: SeasonUpdate): Season!
   deleteSeason(id: ID!): Season
 }
@@ -30,6 +29,7 @@ input SeasonUpdate {
 input ClubUpdate {
   id: ID!
   name: String
+  description: String
 }
 
 
@@ -43,6 +43,7 @@ type User {
 type Club {
   id:  ID!
   name: String
+  description: String
 }
 
 type Season {
