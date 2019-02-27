@@ -14,10 +14,16 @@ export const Mutation: MutationResolvers.Type = {
   upsertClub: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   },
+  deleteSeason: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
   upsertSeason: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   },
-  deleteSeason: (parent, args, ctx) => {
+  deleteUser: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  upsertUser: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
   }
 };

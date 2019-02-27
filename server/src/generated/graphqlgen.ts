@@ -451,6 +451,11 @@ export namespace MutationResolvers {
     endDate?: string | null;
     visitorFee?: number | null;
   }
+  export interface UserUpdate {
+    id: string;
+    email?: string | null;
+    name?: string | null;
+  }
 
   export interface ArgsSignupUser {
     email: string;
@@ -465,12 +470,20 @@ export namespace MutationResolvers {
     club?: ClubUpdate | null;
   }
 
+  export interface ArgsDeleteSeason {
+    id: string;
+  }
+
   export interface ArgsUpsertSeason {
     season?: SeasonUpdate | null;
   }
 
-  export interface ArgsDeleteSeason {
+  export interface ArgsDeleteUser {
     id: string;
+  }
+
+  export interface ArgsUpsertUser {
+    user?: UserUpdate | null;
   }
 
   export type SignupUserResolver = (
@@ -494,6 +507,13 @@ export namespace MutationResolvers {
     info: GraphQLResolveInfo
   ) => Club | Promise<Club>;
 
+  export type DeleteSeasonResolver = (
+    parent: undefined,
+    args: ArgsDeleteSeason,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Season | null | Promise<Season | null>;
+
   export type UpsertSeasonResolver = (
     parent: undefined,
     args: ArgsUpsertSeason,
@@ -501,12 +521,19 @@ export namespace MutationResolvers {
     info: GraphQLResolveInfo
   ) => Season | Promise<Season>;
 
-  export type DeleteSeasonResolver = (
+  export type DeleteUserResolver = (
     parent: undefined,
-    args: ArgsDeleteSeason,
+    args: ArgsDeleteUser,
     ctx: Context,
     info: GraphQLResolveInfo
-  ) => Season | null | Promise<Season | null>;
+  ) => User | null | Promise<User | null>;
+
+  export type UpsertUserResolver = (
+    parent: undefined,
+    args: ArgsUpsertUser,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => User | null | Promise<User | null>;
 
   export interface Type {
     signupUser: (
@@ -530,6 +557,13 @@ export namespace MutationResolvers {
       info: GraphQLResolveInfo
     ) => Club | Promise<Club>;
 
+    deleteSeason: (
+      parent: undefined,
+      args: ArgsDeleteSeason,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Season | null | Promise<Season | null>;
+
     upsertSeason: (
       parent: undefined,
       args: ArgsUpsertSeason,
@@ -537,12 +571,19 @@ export namespace MutationResolvers {
       info: GraphQLResolveInfo
     ) => Season | Promise<Season>;
 
-    deleteSeason: (
+    deleteUser: (
       parent: undefined,
-      args: ArgsDeleteSeason,
+      args: ArgsDeleteUser,
       ctx: Context,
       info: GraphQLResolveInfo
-    ) => Season | null | Promise<Season | null>;
+    ) => User | null | Promise<User | null>;
+
+    upsertUser: (
+      parent: undefined,
+      args: ArgsUpsertUser,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => User | null | Promise<User | null>;
   }
 }
 

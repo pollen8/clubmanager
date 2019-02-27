@@ -2,39 +2,16 @@ import { AuthenticationError } from 'apollo-server';
 
 import { MutationResolvers } from '../generated/graphqlgen';
 import {
-  ClubCreateInput,
-  ClubUpdateInput,
   SeasonCreateInput,
   SeasonUpdateInput,
 } from '../generated/prisma-client';
-
-const clubResolvers: Pick<MutationResolvers.Type, 'deleteClub' | 'upsertClub'> = {
-  deleteClub: (parent, { id }, ctx) => {
-    return ctx.prisma.deleteClub({ id });
-  },
-  upsertClub: (parent, { club }, ctx) => {
-    const create: ClubCreateInput = {
-      name: String(club.name),
-      description: String(club.description),
-    };
-    const update: ClubUpdateInput = {
-      name: String(club.name),
-      description: String(club.description),
-    }
-    const where = {
-      id: club.id,
-    }
-    return ctx.prisma.upsertClub({
-      where,
-      create,
-      update,
-    });
-  },
-}
+import { clubResolvers } from './mutations/Club';
+import { userResolvers } from './mutations/User';
 
 export const Mutation: MutationResolvers.Type = {
   ...MutationResolvers.defaultResolvers,
   ...clubResolvers,
+  ...userResolvers,
 
 
   signupUser: (parent, { name, email }, ctx) => {

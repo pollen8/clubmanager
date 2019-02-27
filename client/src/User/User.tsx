@@ -18,9 +18,16 @@ import {
   sizes,
   SubHeading,
 } from '../app/components/Layout';
+import { IClub } from '../Club/Club';
 import { Filter } from './components/Filter';
 
 // import { userState } from './userState';
+export interface IUser {
+  id: string;
+  email: string;
+  name: string;
+  clubs: IClub[];
+}
 
 export interface ISearch {
   name: string;

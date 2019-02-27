@@ -14,10 +14,18 @@ type Mutation {
   signupUser(email: String!, name: String): User!
   deleteClub(id: ID!): Club
   upsertClub(club: ClubUpdate): Club!
-  upsertSeason(season: SeasonUpdate): Season!
   deleteSeason(id: ID!): Season
+  upsertSeason(season: SeasonUpdate): Season!
+  deleteUser(id: ID!): User
+  upsertUser(user: UserUpdate): User
 }
 
+
+input UserUpdate {
+  id: ID!
+  email: String
+  name: String
+}
 
 input SeasonUpdate {
   id: ID!
