@@ -10,6 +10,7 @@ import {
 import styled from 'styled-components';
 import { useMedia } from 'use-media';
 
+import { DeleteConfirmation } from '../app/components/DeleteConfirmation';
 import { Grid } from '../app/components/Grid';
 import {
   Button,
@@ -24,7 +25,6 @@ import {
 } from '../app/components/Layout';
 import { SlidePanel } from '../app/components/SlidePanel';
 import { AddMemberForm } from './components/AddMemberForm';
-import { DeleteConfirmation } from './components/DeleteConfirmation';
 import {
   Filter,
   ISearch,

@@ -3,7 +3,6 @@ import { AuthenticationError } from 'apollo-server';
 import { MutationResolvers } from '../generated/graphqlgen';
 import {
   ClubCreateInput,
-  ClubUpdateDataInput,
   ClubUpdateInput,
   SeasonCreateInput,
   SeasonUpdateInput,
@@ -25,10 +24,6 @@ const clubResolvers: Pick<MutationResolvers.Type, 'deleteClub' | 'upsertClub'> =
     const where = {
       id: club.id,
     }
-    console.log('----- upsert club');
-    console.log('where', where);
-    console.log('create', create);
-    console.log('update,', update);
     return ctx.prisma.upsertClub({
       where,
       create,

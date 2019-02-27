@@ -1,5 +1,5 @@
 import React, {
-  Fragment,
+  FC,
   useState,
 } from 'react';
 import { IoMdTrash } from 'react-icons/io';
@@ -9,15 +9,15 @@ import {
   Modal,
   ModalBody,
   ModalFooter,
-} from '../../app/components/Layout';
+} from './Layout';
 
 interface IProps {
   onDelete: () => void;
 }
-export const DeleteConfirmation: React.FC<IProps> = ({ onDelete }) => {
+export const DeleteConfirmation: FC<IProps> = ({ onDelete }) => {
   const [open, onToggle] = useState(false);
   return (
-    <Fragment>
+    <>
       <Button size="sm"
         style={{
           position: 'absolute',
@@ -42,18 +42,23 @@ export const DeleteConfirmation: React.FC<IProps> = ({ onDelete }) => {
         </ModalBody>
         <ModalFooter>
           <Button
+            type="button"
             outline
             onClick={() => onToggle(false)}>
             Cancel
             </Button>
           <Button
+            type="button"
             color="danger500"
             hoverColor="danger400"
-            onClick={onDelete}>
+            onClick={() => {
+              onToggle(false);
+              onDelete();
+            }}>
             <IoMdTrash size="1.2rem" />Delete
         </Button>
         </ModalFooter>
       </Modal>
-    </Fragment>
+    </>
   );
 }

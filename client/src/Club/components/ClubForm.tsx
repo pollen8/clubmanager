@@ -1,4 +1,3 @@
-import gql from 'graphql-tag';
 import React, {
   FC,
   useEffect,
@@ -16,10 +15,11 @@ import {
   ModalFooter,
   SlidePanelBody,
 } from '../../app/components/Layout';
+import { IClub } from '../Club';
 import {
-  FILTER_CLUBS,
-  IClub,
-} from '../Club';
+  update,
+  UPDATE_CLUB,
+} from '../Querires';
 
 interface IProps {
   initialData: null | IClub;
@@ -33,50 +33,14 @@ const blank: IClub = {
 };
 
 
-const UPDATE_CLUB = gql`
-  mutation UpsertClub($id: ID!, $name: String!, $description: String) {
-    upsertClub(club: {
-      id: $id, 
-      name: $name
-      description: $description
-    }) {
-      id,
-      description,
-      name,
-    }
-  }
-`;
-
-
 export const ClubForm: FC<IProps> = ({ initialData, setSelected }) => {
   const [club, setClub] = useState<IClub>(blank);
 
-  useEffect(() => {
-    if (initialData !== null) {
-      setClub(initialData);
-    } else {
-      setClub(blank);
-    }
-  }, [initialData]);
+  useEffect(() =>
+    setClub(initialData !== null ? initialData : blank),
+    [initialData]);
 
-  const upsertClub = useMutation(UPDATE_CLUB, {
-    update: (cache, { data: { upsertClub } }) => {
-      const c = cache.readQuery<{ filterClubs: IClub[] }>({ query: FILTER_CLUBS });
-      if (!c) {
-        return;
-      }
-      const { filterClubs } = c;
-      const i = filterClubs.findIndex((club) => club.id === upsertClub.id);
-      const data = i === -1
-        ? filterClubs.concat([upsertClub])
-        : filterClubs.map((club) => club.id === upsertClub.id ? upsertClub : club);
-      cache.writeQuery({
-        query: FILTER_CLUBS,
-        data: { filterClubs: data },
-      });
-    },
-    variables: club,
-  });
+  const upsertClub = useMutation(UPDATE_CLUB, { update });
   return (
 
     <SlidePanelBody>
@@ -125,6 +89,5 @@ export const ClubForm: FC<IProps> = ({ initialData, setSelected }) => {
         </Button>
       </ModalFooter>
     </SlidePanelBody>
-
   )
 }
