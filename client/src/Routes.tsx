@@ -38,12 +38,9 @@ const handleAuthentication = ({ location }: any) => {
 }
 
 auth.silentAuth();
-console.log('auth, ', Auth, auth, auth.getIdToken());
 const client = new ApolloClient({
   request: async (operation) => {
-    debugger;
     await auth.silentAuth();
-    console.log('id token now', auth.getIdToken());
     operation.setContext((context: any) => ({
       headers: {
         ...context.headers,

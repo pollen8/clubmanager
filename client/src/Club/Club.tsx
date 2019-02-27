@@ -48,8 +48,6 @@ export const Club: FC<{}> = () => {
   const isWide = useMedia(`(min-width: ${sizes.desktop}px)`);
   const { data, error, loading } = useQuery(FILTER_CLUBS);
   if (loading) return <p>Loading...</p>;
-  console.log('error', error);
-  console.log('data', data);
   if (error || data === undefined) return <p>Error :(</p>;
   const cards = data.filterClubs
     .map((club: IClub, index: number) => ({

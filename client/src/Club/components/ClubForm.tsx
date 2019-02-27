@@ -32,15 +32,21 @@ const blank: IClub = {
   description: '',
 };
 
+
 const UPDATE_CLUB = gql`
-  mutation UpsertClub($name: String!, $description: String) {
-    upsertClub(name: $name, description: $description) {
+  mutation UpsertClub($id: ID!, $name: String!, $description: String) {
+    upsertClub(club: {
+      id: $id, 
+      name: $name
+      description: $description
+    }) {
       id,
+      description,
       name,
-      description
     }
   }
 `;
+
 
 export const ClubForm: FC<IProps> = ({ initialData, setSelected }) => {
   const [club, setClub] = useState<IClub>(blank);
@@ -54,19 +60,22 @@ export const ClubForm: FC<IProps> = ({ initialData, setSelected }) => {
   }, [initialData]);
 
   const upsertClub = useMutation(UPDATE_CLUB, {
-    update: (cache, { data: { addClub } }) => {
-      const c = cache.readQuery<any>({ query: FILTER_CLUBS });
-      console.log('cache', c);
+    update: (cache, { data: { upsertClub } }) => {
+      const c = cache.readQuery<{ filterClubs: IClub[] }>({ query: FILTER_CLUBS });
+      if (!c) {
+        return;
+      }
       const { filterClubs } = c;
-      const i = filterClubs.findIndex((season: any) => season.id === addClub.id);
+      const i = filterClubs.findIndex((club) => club.id === upsertClub.id);
       const data = i === -1
-        ? filterClubs.concat([addClub])
-        : filterClubs.map((season: any) => season.id === addClub.id ? addClub : season);
+        ? filterClubs.concat([upsertClub])
+        : filterClubs.map((club) => club.id === upsertClub.id ? upsertClub : club);
       cache.writeQuery({
         query: FILTER_CLUBS,
         data: { filterClubs: data },
       });
-    }
+    },
+    variables: club,
   });
   return (
 
@@ -108,12 +117,11 @@ export const ClubForm: FC<IProps> = ({ initialData, setSelected }) => {
 
         <Button
           onClick={() => {
-            console.log('club', club);
             upsertClub({ variables: club });
             setClub(blank);
           }}>
           <IoIosAddCircle size="1rem" />
-          {initialData === null ? 'Add' : 'Update'}
+          {club.id === '' ? 'Add' : 'Update'}
         </Button>
       </ModalFooter>
     </SlidePanelBody>

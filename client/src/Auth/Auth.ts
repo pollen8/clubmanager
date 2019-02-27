@@ -34,7 +34,6 @@ export class Auth {
   }
 
   getAccessToken() {
-    debugger;
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
       throw new Error('No Access Token found');
@@ -92,7 +91,6 @@ export class Auth {
     // if (this.isAuthenticated()) {
     return new Promise((resolve, reject) => {
       this.auth0.checkSession({}, (err, authResult) => {
-        debugger;
         if (err) {
           localStorage.removeItem(this.authFlag);
           return reject(err);
