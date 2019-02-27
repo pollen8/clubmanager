@@ -4,8 +4,8 @@ import { MutationUpdaterFn } from 'react-apollo-hooks';
 import { IClub } from './Club';
 
 export const FILTER_CLUBS = gql`
-{
-  filterClubs(searchString: "") {
+ query FilterClub($searchString: String) {
+  filterClubs(searchString: $searchString) {
     id,
     name,
     description,

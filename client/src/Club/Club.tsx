@@ -25,6 +25,10 @@ import {
 import { SlidePanel } from '../app/components/SlidePanel';
 import { ClubForm } from './components/ClubForm';
 import {
+  Filter,
+  IClubSearch,
+} from './components/Filter';
+import {
   DELETE_CLUB,
   FILTER_CLUBS,
   remove,
@@ -43,12 +47,12 @@ export interface ISearch {
 export const Club: FC<{}> = () => {
   const [visible, showForm] = useState(false);
   const [selected, setSelected] = useState<IClub | null>(null);
+  const [search, setSearch] = useState<IClubSearch>({ name: '' });
   const isWide = useMedia(`(min-width: ${sizes.desktop}px)`);
-  const { data, error, loading } = useQuery(FILTER_CLUBS);
+  const { data, error, loading } = useQuery(FILTER_CLUBS, { variables: { searchString: search.name } });
   const deleteClub = useMutation(DELETE_CLUB, { update: remove });
-  if (loading) return <p>Loading...</p>;
   if (error || data === undefined) return <p>Error :(</p>;
-  const cards = data.filterClubs
+  const cards = data && data.filterClubs && data.filterClubs
     .map((club: IClub, index: number) => ({
 
       component: (
@@ -95,12 +99,20 @@ export const Club: FC<{}> = () => {
       </Col>
     </Row>
     <Row>
-
+      <Col size={2} md={12}>
+        <Filter
+          search={search}
+          setSearch={setSearch} />
+      </Col>
       <Col md={12} style={{ marginRight: '13rem' }}>
-        <Grid
-          data={cards}
-          height={isWide ? 190 : 160}
-          columns={isWide ? 3 : 1} />
+        {loading
+          ? <p>Loading...</p>
+          :
+          <Grid
+            data={cards}
+            height={isWide ? 190 : 160}
+            columns={isWide ? 3 : 1} />
+        }
       </Col>
       <SlidePanel visible={visible}>
         <ClubForm
