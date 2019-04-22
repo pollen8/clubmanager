@@ -35,7 +35,7 @@ export const UPDATE_CLUB = gql`
 `;
 
 export const update: MutationUpdaterFn = (cache, { data: { upsertClub } }) => {
-  const c = cache.readQuery<{ filterClubs: IClub[] }>({ query: FILTER_CLUBS });
+  const c = cache.readQuery<{ filterClubs: IClub[] }>({ query: FILTER_CLUBS, variables: { searchString: '' } });
   if (!c) {
     return;
   }
