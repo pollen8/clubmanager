@@ -55,7 +55,7 @@ export const DeleteConfirmation: FC<IProps> = ({ onDelete }) => {
               onToggle(false);
               onDelete();
             }}>
-            <IoMdTrash size="1.2rem" />Delete
+            <IoMdTrash />Delete
         </Button>
         </ModalFooter>
       </Modal>

@@ -14,7 +14,7 @@ export const useDropdown = (trigger: MutableRefObject<any>): [boolean, Dispatch<
       if (!trigger.current) {
         return;
       }
-      if (e.path.indexOf(trigger.current) !== -1) {
+      if (e && e.path && e.path.indexOf(trigger.current) !== -1) {
         return;
       }
       setDropdownVisible(false);

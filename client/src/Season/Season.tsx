@@ -87,9 +87,9 @@ export const Season: FC<{}> = () => {
         <Button size="sm"
           color="grey500"
           onClick={() => showForm(!visible)}>
-          <IoIosAddCircle size="1rem" />
+          <IoIosAddCircle />
           Add
-              </Button>
+        </Button>
       </Col>
     </Row>
     <Row>

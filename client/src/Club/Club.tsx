@@ -90,10 +90,11 @@ export const Club: FC<{}> = () => {
         <SubHeading>Clubs</SubHeading>
       </Col>
       <Col flexGrow={0}>
-        <Button size="sm"
+        <Button 
+          size="sm"
           color="grey500"
           onClick={() => showForm(!visible)}>
-          <IoIosAddCircle size="1rem" />
+          <IoIosAddCircle  />
           Add
         </Button>
       </Col>
