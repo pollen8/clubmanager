@@ -7,8 +7,14 @@ import loading from './loading.svg';
 class Callback extends Component<any> {
 
   async componentDidMount() {
-    await auth.handleAuthentication();
-    this.props.history.replace('/');
+    try {
+      await auth.handleAuthentication();
+    } catch (e) {
+      window.alert('counld not login');
+      console.log(e);
+    } finally {
+      this.props.history.replace('/');
+    }
   }
 
   render() {

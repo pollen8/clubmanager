@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import { useMutation } from 'react-apollo-hooks';
 import { IoIosAddCircle } from 'react-icons/io';
 
 import {
@@ -17,32 +18,36 @@ import {
 import {
   IMember,
   IMembershipType,
-} from '../memberState';
+} from '../Members';
+import {
+  update,
+  UPDATE_MEMBER,
+} from '../Queries';
+
+
+const blank: IMember = {
+  id: '',
+  name: '',
+  membership: 'guest',
+  season: [],
+};
 
 interface IProps {
-  addMember: (game: IMember) => void;
-  editMember: (game: IMember) => void;
+  // addMember: (game: IMember) => void;
+  // editMember: (game: IMember) => void;
   initialData: null | IMember;
   setSelected: any;
 }
 export const AddMemberForm: FC<IProps & React.HTMLAttributes<HTMLDivElement>>
-  = ({ addMember, editMember, initialData, setSelected }) => {
-    const [name, setName] = useState('');
-    const [id, setId] = useState('');
-    const [membership, setMembership] = useState<IMembershipType>('');
+  = ({ initialData, setSelected }) => {
+    const [member, setMember] = useState<IMember>(blank);
 
-    // Similar to componentDidMount and componentDidUpdate:
-    useEffect(() => {
-      if (initialData !== null) {
-        setName(initialData.name);
-        setMembership(initialData.membership);
-        setId(initialData.id);
-      } else {
-        setName('');
-        setMembership('guest');
-        setId('');
-      }
-    }, [initialData]);
+    useEffect(() =>
+      setMember(initialData !== null ? initialData : blank),
+      [initialData]);
+ 
+    const upsertMember = useMutation(UPDATE_MEMBER, { update });
+
     return (
       <SlidePanelBody>
         <CardBody>
@@ -50,9 +55,10 @@ export const AddMemberForm: FC<IProps & React.HTMLAttributes<HTMLDivElement>>
             <Label htmlFor="gameName">
               Name
             </Label>
-            <Input name="name" id="gameName"
-              value={name}
-              onChange={(e) => setName(e.target.value)} />
+            <Input name="name" 
+              id="memberName"
+              value={member.name}
+              onChange={(e) => setMember({...member, name: e.target.value})} />
           </FormGroup>
           <FormGroup
             checked>
@@ -61,8 +67,11 @@ export const AddMemberForm: FC<IProps & React.HTMLAttributes<HTMLDivElement>>
           </Label>
             <Input type="checkbox"
               id="membership"
-              checked={membership === 'member'}
-              onChange={(e) => setMembership(e.target.checked ? 'member' : 'guest')} />
+              checked={member.membership === 'member'}
+              onChange={(e) => setMember({
+                ...member,
+                membership: e.target.checked ? 'member' : 'guest',
+              })} />
 
           </FormGroup>
         </CardBody>
@@ -75,12 +84,8 @@ export const AddMemberForm: FC<IProps & React.HTMLAttributes<HTMLDivElement>>
 
           <Button
             onClick={() => {
-              id === ''
-                ? addMember({ season: [], name, membership, id })
-                : editMember({ season: [], name, membership, id })
-              setName('');
-              setMembership('guest');
-              setId('');
+              upsertMember({ variables: member });
+              setMember(blank);
             }}>
             <IoIosAddCircle size="1rem" />
             {initialData === null ? 'Add' : 'Update'}

@@ -42,7 +42,6 @@ export const ClubForm: FC<IProps> = ({ initialData, setSelected }) => {
 
   const upsertClub = useMutation(UPDATE_CLUB, { update });
   return (
-
     <SlidePanelBody>
       <CardBody>
         <FormGroup>

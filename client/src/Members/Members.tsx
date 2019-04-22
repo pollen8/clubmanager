@@ -29,7 +29,6 @@ import {
   Filter,
   ISearch,
 } from './components/Filter';
-import { IMember } from './memberState';
 
 const Date = styled.div`
   color: ${(props) => props.theme.grey700};
@@ -40,6 +39,17 @@ const Date = styled.div`
     margin-right: 0.3rem;
   }
 `;
+
+export type IMembershipType = '' | 'member' | 'guest';
+
+export interface IMember {
+  createdAt?: Date;
+  id: string;
+  name: string;
+  membership: IMembershipType;
+  updatedAt?: Date;
+  season: any;
+}
 
 export const Members: FC<{}> = () => {
   const [search, setSearch] = useState<ISearch>({
@@ -132,11 +142,9 @@ export const Members: FC<{}> = () => {
             columns={isWide ? 3 : 1} />
         </Col>
         <SlidePanel visible={visible}>
-          {/* <AddMemberForm
+          <AddMemberForm
             initialData={selected}
-            setSelected={setSelected}
-            addMember={addMember}
-            editMember={editMember} /> */}
+            setSelected={setSelected} />
         </SlidePanel>
       </Row>
     </Content>

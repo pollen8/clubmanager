@@ -57,11 +57,15 @@ export class Auth {
 
   handleAuthentication() {
     return new Promise((resolve, reject) => {
+      console.log('handleAuthentication');
+      console.log(this.auth0);
       this.auth0.parseHash((err, authResult) => {
+        console.log('res', err, authResult);
         if (err) return reject(err);
         if (!authResult || !authResult.idToken) {
           return reject(err);
         }
+        console.log('authResult', authResult);
         this.setSession(authResult);
         resolve();
       });
@@ -74,6 +78,7 @@ export class Auth {
     this.expiresAt = authResult.expiresIn
       ? authResult.expiresIn * 1000 + new Date().getTime()
       : 0;
+      console.log('set Session', authResult);
     localStorage.setItem(this.authFlag, JSON.stringify(true));
     localStorage.setItem('access_token', String(authResult.accessToken));
   }

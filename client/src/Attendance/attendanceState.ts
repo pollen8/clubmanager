@@ -3,7 +3,7 @@
 //   useEffect,
 //   useState,
 // } from 'react';
-import { IMember } from '../Members/memberState';
+import { IMember } from '../Members/Members';
 
 export interface IClubNight {
   createdAt?: Date;

@@ -7,7 +7,7 @@ import {
   Label,
 } from '../../app/components/Layout';
 // import { seasonState } from '../../Season/seasonState';
-import { IMembershipType } from '../memberState';
+import { IMembershipType } from '../Members';
 
 const memberOptions: Array<{ value: IMembershipType, label: string }> = [
   { value: '', label: 'any' },
