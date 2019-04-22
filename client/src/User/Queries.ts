@@ -4,12 +4,15 @@ import { MutationUpdaterFn } from 'react-apollo-hooks';
 import { IUser } from './User';
 
 export const FILTER_USERS = gql`
-{
-  filterUsers(searchString: "") {
+ query filterUsers($searchString: String) {
+  filterUsers(searchString: $searchString) {
     id,
     email,
     name,
-    clubs,
+    clubs {
+      id,
+      name,
+    }
   }
 }`;
 

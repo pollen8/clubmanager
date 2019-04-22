@@ -2,8 +2,13 @@ import React, {
   FC,
   useState,
 } from 'react';
+import {
+  useMutation,
+  useQuery,
+} from 'react-apollo-hooks';
 import { useMedia } from 'use-media';
 
+import Loading from '../app/components/Loading';
 import { Grid } from '../app/components/Grid';
 import {
   Card,
@@ -20,8 +25,8 @@ import {
 } from '../app/components/Layout';
 import { IClub } from '../Club/Club';
 import { Filter } from './components/Filter';
+import {FILTER_USERS, DELETE_USER, remove} from './Queries';
 
-// import { userState } from './userState';
 export interface IUser {
   id: string;
   email: string;
@@ -35,22 +40,19 @@ export interface ISearch {
 
 export const User: FC<{}> = () => {
   // const { users, usersRoles, updateRole, isCurrentUser } = userState();
-  const users: any[] = [];
+  // const users: any[] = [];
   const usersRoles: any[] = [];
 
   const isWide = useMedia(`(min-width: ${sizes.desktop}px)`);
   const [search, setSearch] = useState<ISearch>({
     name: '',
   });
-  const cards = users
-    .filter((user) => {
-      if (search.name === '') {
-        return true;
-      }
-      const regex = new RegExp(search.name, 'gi');
-      return String(user.getUsername()).search(regex) !== -1;
-    })
-    .map((user, index) => ({
+  const { data, error, loading } = useQuery(FILTER_USERS, { variables: { searchString: search.name } });
+  const deleteUser = useMutation(DELETE_USER, { update: remove });
+  if (error || data === undefined) return <p>Error :(</p>;
+ 
+  const cards = data.filterUsers && data.filterUsers
+    .map((user: IUser, index: number) => ({
 
       component: (
         <Card style={{ display: 'flex', position: 'relative' }}>
@@ -58,9 +60,9 @@ export const User: FC<{}> = () => {
             <Row>
               <Col flexGrow={1}>
                 <Name>
-                  {user.getUsername()}
+                  {user.name}
                 </Name>
-                {user.getEmail()}
+                {user.email}
                 {
                   usersRoles.map((role) => {
                     const id = 'role-' + user.id + '-' + role.name;
@@ -103,10 +105,15 @@ export const User: FC<{}> = () => {
             setSearch={setSearch} />
         </Col>
         <Col md={12} style={{ marginRight: '13rem' }}>
+        {
+          loading ?
+          <Loading />
+        :
           <Grid
             data={cards}
             height={isWide ? 190 : 160}
             columns={isWide ? 3 : 1} />
+        }
         </Col>
 
       </Row>
