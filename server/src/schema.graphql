@@ -18,8 +18,16 @@ type Mutation {
   upsertSeason(season: SeasonUpdate): Season!
   deleteUser(id: ID!): User
   upsertUser(user: UserUpdate): User
+  deleteMember(id: ID!): Member
+  upsertMember(member: MemberUpdate): Member
 }
 
+input MemberUpdate {
+  id: ID!
+  name: String!
+  type: MembershipType!
+  # seasons: [SeasonUpdate!]!
+}
 
 input UserUpdate {
   id: ID!

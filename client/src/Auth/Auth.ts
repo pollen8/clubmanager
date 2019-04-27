@@ -14,7 +14,7 @@ export class Auth {
     scope: 'openid profile'
   })
 
-  authFlag: string = '';
+  authFlag: string = 'isLoggedIn';
   idToken: string | undefined = '';
   expiresAt = 0;
   userProfile: Auth0UserProfile | null = null;
@@ -26,6 +26,7 @@ export class Auth {
     this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.getProfile = this.getProfile.bind(this);
+    this.setSession = this.setSession.bind(this);
     this.silentAuth();
   }
 
@@ -78,7 +79,7 @@ export class Auth {
     this.expiresAt = authResult.expiresIn
       ? authResult.expiresIn * 1000 + new Date().getTime()
       : 0;
-      console.log('set Session', authResult);
+    console.log('set Session', authResult);
     localStorage.setItem(this.authFlag, JSON.stringify(true));
     localStorage.setItem('access_token', String(authResult.accessToken));
   }

@@ -25,5 +25,11 @@ export const Mutation: MutationResolvers.Type = {
   },
   upsertUser: (parent, args, ctx) => {
     throw new Error("Resolver not implemented");
+  },
+  deleteMember: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
+  },
+  upsertMember: (parent, args, ctx) => {
+    throw new Error("Resolver not implemented");
   }
 };

@@ -24,7 +24,6 @@ export const DELETE_USER = gql`
   }
 `;
 
-// @TODO upsert clubs
 export const UPDATE_USER = gql`
   mutation UpsertUser($id: ID!, $name: String!, $email: String) {
     upsertUser(club: {

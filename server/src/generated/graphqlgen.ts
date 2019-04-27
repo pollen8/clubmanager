@@ -456,6 +456,11 @@ export namespace MutationResolvers {
     email?: string | null;
     name?: string | null;
   }
+  export interface MemberUpdate {
+    id: string;
+    name: string;
+    type: MembershipType;
+  }
 
   export interface ArgsSignupUser {
     email: string;
@@ -484,6 +489,14 @@ export namespace MutationResolvers {
 
   export interface ArgsUpsertUser {
     user?: UserUpdate | null;
+  }
+
+  export interface ArgsDeleteMember {
+    id: string;
+  }
+
+  export interface ArgsUpsertMember {
+    member?: MemberUpdate | null;
   }
 
   export type SignupUserResolver = (
@@ -535,6 +548,20 @@ export namespace MutationResolvers {
     info: GraphQLResolveInfo
   ) => User | null | Promise<User | null>;
 
+  export type DeleteMemberResolver = (
+    parent: undefined,
+    args: ArgsDeleteMember,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Member | null | Promise<Member | null>;
+
+  export type UpsertMemberResolver = (
+    parent: undefined,
+    args: ArgsUpsertMember,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => Member | null | Promise<Member | null>;
+
   export interface Type {
     signupUser: (
       parent: undefined,
@@ -584,6 +611,20 @@ export namespace MutationResolvers {
       ctx: Context,
       info: GraphQLResolveInfo
     ) => User | null | Promise<User | null>;
+
+    deleteMember: (
+      parent: undefined,
+      args: ArgsDeleteMember,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Member | null | Promise<Member | null>;
+
+    upsertMember: (
+      parent: undefined,
+      args: ArgsUpsertMember,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => Member | null | Promise<Member | null>;
   }
 }
 
