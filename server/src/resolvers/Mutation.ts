@@ -6,12 +6,14 @@ import {
   SeasonUpdateInput,
 } from '../generated/prisma-client';
 import { clubResolvers } from './mutations/Club';
+import { memberResolvers } from './mutations/Member';
 import { userResolvers } from './mutations/User';
 
 export const Mutation: MutationResolvers.Type = {
   ...MutationResolvers.defaultResolvers,
   ...clubResolvers,
   ...userResolvers,
+  ...memberResolvers,
 
 
   signupUser: (parent, { name, email }, ctx) => {
